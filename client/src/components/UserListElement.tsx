@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { User } from "lib/user";
 
-type UserProps = {
+type UserListElementProps = {
   user: User
 }
 
-const UserListElement: FC<UserProps> = ({ user }) => {
+const UserListElement: FC<UserListElementProps> = ({ user }) => {
   return (
     <div>
       {user.name}
