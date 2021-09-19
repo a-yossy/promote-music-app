@@ -5,7 +5,7 @@ export type User = {
   name: string
 };
 
-export　const usersQuery = gql`
+export　const getUsersQuery = gql`
   query Users {
     users {
       id
