@@ -1,4 +1,5 @@
 class Artist < ApplicationRecord
   validates :name, presence: true
-  belongs_to :user
+  has_many :user_artists
+  has_many :users, through: :user_artists
 end
