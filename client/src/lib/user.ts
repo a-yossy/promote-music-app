@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 
 export type User = {
   id: number,
-  name:string
+  name: string
 };
 
 export　const usersQuery = gql`
