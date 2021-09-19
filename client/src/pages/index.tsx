@@ -1,6 +1,7 @@
 import { FC, useState, useEffect } from "react";
 import { getUsersQuery, User } from "lib/user";
 import { useQuery } from "@apollo/client";
+import Users from "components/Users";
 
 const TopPage: FC = () => {
   const { loading, error, data } = useQuery(getUsersQuery);
@@ -14,15 +15,9 @@ const TopPage: FC = () => {
   if (error) return <>`Error ${error.message}`</>;
 
   return (
-    <>
-      {users.map((user) => {
-        return(
-          <div key={user.id}>
-            {user.name}
-          </div>
-        )
-      })}
-    </>
+    <Users
+      users={users}
+    />
   )
 };
 
