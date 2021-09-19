@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2021_09_19_144105) do
 
   create_table "artists", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
