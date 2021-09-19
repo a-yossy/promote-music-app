@@ -22,6 +22,18 @@ module Types
       User.all
     end
 
+    field :artists, [Types::ArtistType], null: false do
+      argument :name, String, required: true
+    end
+    def artists(name:)
+      if user = User.find_by(name: name)
+        user.artists
+      else
+        raise GraphQL::ExecutionError, "Failed!"
+      end
+
+    end
+
     # TODO: remove me
     field :test_field, String, null: false,
       description: "An example field added by the generator"
