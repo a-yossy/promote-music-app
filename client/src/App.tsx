@@ -1,12 +1,7 @@
 import { FC } from "react";
 import { ApolloProvider } from "@apollo/client";
-import { ApolloClient, InMemoryCache } from "@apollo/client";
 import TopPage from "pages";
-
-const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  uri: 'http://localhost:3000/graphql'
-})
+import { client } from "constant";
 
 const App: FC = () => {
   return (
