@@ -10,7 +10,7 @@ const TopPage: FC = () => {
     data && setUsers(data.users)
   },[data]);
 
-  if (loading) return <>"Loading"</>;
+  if (loading) return <>Loading</>;
   if (error) return <>`Error ${error.message}`</>;
 
   return (
