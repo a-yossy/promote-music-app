@@ -4,7 +4,7 @@ import { Link, Routes } from "react-router-dom";
 
 type UserListElementProps = {
   user: User,
-}
+};
 
 const UserListElement: FC<UserListElementProps> = ({ user }) => {
   return (
