@@ -18,6 +18,10 @@ export const getUserQueryById = gql`
   query User($id: Int!) {
     user(id: $id) {
       name
+      artists {
+        id
+        name
+      }
     }
   }
 `

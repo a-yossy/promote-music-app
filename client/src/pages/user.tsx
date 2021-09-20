@@ -1,16 +1,22 @@
 import { FC, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { User, getUserQueryById } from "lib/user";
+import { getUserQueryById } from "lib/user";
+import { Artist } from "lib/artist";
+import Artists from "components/Artists";
 
 const UserPage: FC =() => {
   const params = useParams();
   const userId = Number(params.id);
   const { loading, error, data } = useQuery(getUserQueryById, { variables: { id: userId } });
-  const [user, setUser] = useState<User>();
+  const [userName, setUserName] = useState<String>("");
+  const [artists, setArtists] = useState<Artist[]>([]);
 
   useEffect(() => {
-    data && setUser(data.user);
+    if (data) {
+      setUserName(data.user.name);
+      setArtists(data.user.artists);
+    }
   }, [data]);
 
   if (loading) return <>Loading</>
@@ -18,7 +24,10 @@ const UserPage: FC =() => {
 
   return (
     <>
-      <h1>{user?.name}</h1>
+      <h1>{userName}</h1>
+      <Artists
+        artists={artists}
+      />
     </>
   )
 };
