@@ -15,7 +15,7 @@ export　const getUsersQuery = gql`
 `;
 
 export const getUserByIdQuery = gql`
-  query User($id: Int!) {
+  query User($id: ID!) {
     user(id: $id) {
       name
       artists {
