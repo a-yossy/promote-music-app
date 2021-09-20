@@ -29,6 +29,7 @@ const SignupPage: FC = () => {
     <>
       <input
         onChange={handleChange}
+        value={value}
         type="text"
       />
       <button onClick={handleClick}>
