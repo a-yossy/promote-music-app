@@ -24,7 +24,7 @@ export const getUserByIdQuery = gql`
       }
     }
   }
-`
+`;
 
 export const createUserMutation = gql`
   mutation CreateUser($name: String!) {

@@ -4,7 +4,7 @@ import UserListElement from "components/UserListElement";
 
 type UsersProps = {
   users: User[],
-}
+};
 
 const Users: FC<UsersProps> =({ users }) => {
   return (
@@ -19,6 +19,6 @@ const Users: FC<UsersProps> =({ users }) => {
       })}
     </>
   )
-}
+};
 
 export default Users;
