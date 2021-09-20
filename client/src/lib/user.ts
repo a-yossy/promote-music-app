@@ -14,7 +14,7 @@ export　const getUsersQuery = gql`
   }
 `;
 
-export const getUserQueryById = gql`
+export const getUserByIdQuery = gql`
   query User($id: Int!) {
     user(id: $id) {
       name
