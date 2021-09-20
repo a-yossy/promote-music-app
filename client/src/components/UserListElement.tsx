@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { User } from "lib/user";
+import { Link, Routes } from "react-router-dom";
 
 type UserListElementProps = {
   user: User
@@ -8,7 +9,9 @@ type UserListElementProps = {
 const UserListElement: FC<UserListElementProps> = ({ user }) => {
   return (
     <div>
-      {user.name}
+      <Link to={`/user/${user.id}`}>
+        {user.name}
+      </Link>
     </div>
   )
 };
