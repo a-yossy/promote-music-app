@@ -8,14 +8,15 @@ const SignupPage: FC = () => {
   const [createUser, { loading, error }] = useMutation(createUserMutation);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleClick = async () => {
+  const handleClick = () => {
     if (inputRef.current?.value) {
-      try {
-        await createUser({ variables: { name: inputRef.current.value } });
-        navigate("/", { replace: true });
-      } catch(e) {
-        console.error(e);
-      }
+      createUser({ variables: { name: inputRef.current.value } })
+        .then(_ => {
+          navigate("/", { replace: true });
+        })
+        .catch(e => {
+          console.error(e);
+        });
     }
   };
 
