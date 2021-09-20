@@ -7,10 +7,10 @@ module Types
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
     field :user, Types::UserType, null: false do
-      argument :name, String, required: true
+      argument :user_id, Int, required: true
     end
-    def user(name:)
-      if user = User.find_by(name: name)
+    def user(user_id:)
+      if user = User.find_by(id: user_id)
         user
       else
         raise GraphQL::ExecutionError, "Failed!"
