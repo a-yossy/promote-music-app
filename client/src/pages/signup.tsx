@@ -1,4 +1,4 @@
-import { FC, useRef } from "react";
+import React, { FC, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { createUserMutation } from "lib/user";
 import { useNavigate } from "react-router";
@@ -6,11 +6,15 @@ import { useNavigate } from "react-router";
 const SignupPage: FC = () => {
   const navigate = useNavigate();
   const [createUser, { loading, error }] = useMutation(createUserMutation);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [value, setValue] = useState<string>("");
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  };
 
   const handleClick = () => {
-    if (inputRef.current?.value) {
-      createUser({ variables: { name: inputRef.current.value } })
+    if (value) {
+      createUser({ variables: { name: value } })
         .then(_ => {
           navigate("/", { replace: true });
         })
@@ -26,7 +30,7 @@ const SignupPage: FC = () => {
   return (
     <>
       <input
-        ref={inputRef}
+        onChange={handleChange}
         type="text"
       />
       <button onClick={handleClick}>
