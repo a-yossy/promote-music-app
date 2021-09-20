@@ -3,7 +3,7 @@ import { User } from "lib/user";
 import { Link, Routes } from "react-router-dom";
 
 type UserListElementProps = {
-  user: User
+  user: User,
 }
 
 const UserListElement: FC<UserListElementProps> = ({ user }) => {

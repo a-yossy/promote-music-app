@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 
 export type User = {
   id: number,
-  name: string
+  name: string,
 };
 
 export　const getUsersQuery = gql`
@@ -13,3 +13,15 @@ export　const getUsersQuery = gql`
     }
   }
 `;
+
+export const getUserByIdQuery = gql`
+  query User($id: ID!) {
+    user(id: $id) {
+      name
+      artists {
+        id
+        name
+      }
+    }
+  }
+`
