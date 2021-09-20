@@ -13,15 +13,13 @@ const SignupPage: FC = () => {
   };
 
   const handleClick = () => {
-    if (value) {
-      createUser({ variables: { name: value } })
-        .then(_ => {
-          navigate("/", { replace: true });
-        })
-        .catch(e => {
-          console.error(e);
-        });
-    }
+    createUser({ variables: { name: value } })
+      .then(_ => {
+        navigate("/", { replace: true });
+      })
+      .catch(e => {
+        console.error(e);
+      });
   };
 
   if (loading) return <>Submitting</>;
