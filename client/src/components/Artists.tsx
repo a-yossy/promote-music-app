@@ -3,7 +3,7 @@ import { Artist } from "lib/artist";
 import ArtistListElement from "components/ArtistListElement";
 
 type ArtistsProps = {
-  artists: Artist[]
+  artists: Artist[],
 };
 
 const Artists: FC<ArtistsProps> = ({ artists }) => {

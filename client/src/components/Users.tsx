@@ -3,7 +3,7 @@ import { User } from "lib/user"
 import UserListElement from "components/UserListElement";
 
 type UsersProps = {
-  users: User[]
+  users: User[],
 }
 
 const Users: FC<UsersProps> =({ users }) => {

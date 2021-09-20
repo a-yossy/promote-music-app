@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Artist } from "lib/artist";
 
 type ArtistListElementProps = {
-  artist: Artist
+  artist: Artist,
 };
 
 const ArtistListElement: FC<ArtistListElementProps> = ({ artist }) => {
