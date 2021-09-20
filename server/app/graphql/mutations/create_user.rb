@@ -17,7 +17,7 @@ module Mutations
       if user.save
         { user: user }
       else
-        raise GraphQL::ExecutionError, "Failed!"
+        raise GraphQL::ExecutionError, user.errors.full_messages.join(", ")
       end
     end
   end
