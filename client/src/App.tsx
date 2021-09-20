@@ -1,8 +1,11 @@
 import { FC } from "react";
 import { ApolloProvider } from "@apollo/client";
 import TopPage from "pages";
+import UserPage from "pages/user";
 import { URI } from "constant";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { Route, Routes, Navigate } from 'react-router';
+import { BrowserRouter } from "react-router-dom";
 
 export const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -12,7 +15,13 @@ export const client = new ApolloClient({
 const App: FC = () => {
   return (
     <ApolloProvider client={client} >
-      <TopPage />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<TopPage />} />
+          <Route path="user/:id" element={<UserPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </BrowserRouter>
     </ApolloProvider>
   );
 }
