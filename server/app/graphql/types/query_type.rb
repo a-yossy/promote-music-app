@@ -22,18 +22,6 @@ module Types
       User.all
     end
 
-    field :artists, [Types::ArtistType], null: false do
-      argument :user_id, Int, required: true
-    end
-    def artists(user_id:)
-      if user = User.find_by(id: user_id)
-        user.artists
-      else
-        raise GraphQL::ExecutionError, "Failed!"
-      end
-
-    end
-
     # TODO: remove me
     field :test_field, String, null: false,
       description: "An example field added by the generator"
