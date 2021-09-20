@@ -23,10 +23,10 @@ module Types
     end
 
     field :artists, [Types::ArtistType], null: false do
-      argument :user_name, String, required: true
+      argument :user_id, Int, required: true
     end
-    def artists(user_name:)
-      if user = User.find_by(name: user_name)
+    def artists(user_id:)
+      if user = User.find_by(id: user_id)
         user.artists
       else
         raise GraphQL::ExecutionError, "Failed!"
