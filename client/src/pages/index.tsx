@@ -12,7 +12,7 @@ const TopPage: FC = () => {
   },[data]);
 
   if (loading) return <>Loading</>;
-  if (error) return <>`Error ${error.message}`</>;
+  if (error) return <>Error: {error.message}</>;
 
   return (
     <Users
