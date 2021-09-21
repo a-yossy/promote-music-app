@@ -15,7 +15,7 @@ export type UserData = {
   user: User;
 };
 
-export type getUserById = {
+export type getUserByIdInput = {
   id: number;
 };
 

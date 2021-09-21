@@ -1,14 +1,14 @@
 import { FC, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { getUserByIdQuery, UserData, getUserById } from 'lib/user';
+import { getUserByIdQuery, UserData, getUserByIdInput } from 'lib/user';
 import { Artist } from 'lib/artist';
 import Artists from 'components/Artists';
 
 const UserPage: FC = () => {
   const params = useParams();
   const userId = Number(params.id);
-  const { loading, error, data } = useQuery<UserData, getUserById>(
+  const { loading, error, data } = useQuery<UserData, getUserByIdInput>(
     getUserByIdQuery,
     {
       variables: { id: userId },
