@@ -1,16 +1,12 @@
-import { FC } from "react";
-import { Artist } from "lib/artist";
+import { FC } from 'react';
+import { Artist } from 'lib/artist';
 
 type ArtistListElementProps = {
-  artist: Artist,
+  artist: Artist;
 };
 
-const ArtistListElement: FC<ArtistListElementProps> = ({ artist }) => {
-  return (
-    <div>
-      {artist.name}
-    </div>
-  )
-};
+const ArtistListElement: FC<ArtistListElementProps> = ({ artist }) => (
+  <div>{artist.name}</div>
+);
 
 export default ArtistListElement;
