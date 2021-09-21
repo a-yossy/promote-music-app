@@ -16,7 +16,7 @@ const SignupPage: FC = () => {
   const handleClick = () => {
     createUser({ variables: { name: value } })
       .then((_) => {
-        navigate('/', { replace: true });
+        navigate({ pathname: '/' }, { replace: true });
       })
       .catch((e) => {
         console.error(e);
