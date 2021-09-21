@@ -1,24 +1,17 @@
-import { FC } from "react";
-import { User } from "lib/user"
-import UserListElement from "components/UserListElement";
+import { FC } from 'react';
+import { User } from 'lib/user';
+import UserListElement from 'components/UserListElement';
 
 type UsersProps = {
-  users: User[],
+  users: User[];
 };
 
-const Users: FC<UsersProps> =({ users }) => {
-  return (
-    <>
-      {users.map((user) => {
-        return (
-          <UserListElement
-            key={user.id}
-            user={user}
-          />
-        )
-      })}
-    </>
-  )
-};
+const Users: FC<UsersProps> = ({ users }) => (
+  <>
+    {users.map((user) => (
+      <UserListElement key={user.id} user={user} />
+    ))}
+  </>
+);
 
 export default Users;

@@ -1,11 +1,25 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
+import { Artist } from './artist';
 
 export type User = {
-  id: number,
-  name: string,
+  id: number;
+  name: string;
+  artists: Artist[];
 };
 
-export　const getUsersQuery = gql`
+export type UsersData = {
+  users: User[];
+};
+
+export type UserData = {
+  user: User;
+};
+
+export type getUserById = {
+  id: number;
+};
+
+export const getUsersQuery = gql`
   query Users {
     users {
       id
