@@ -19,10 +19,6 @@ export type getUserById = {
   id: number;
 };
 
-export type loginUserByNameInput = {
-  name: string
-}
-
 export const getUsersQuery = gql`
   query Users {
     users {
@@ -40,15 +36,6 @@ export const getUserByIdQuery = gql`
         id
         name
       }
-    }
-  }
-`;
-
-export const loginUserByNameQuery = gql`
-  query LoginUser($name: String!) {
-    loginUser(name: $name) {
-      id
-      name
     }
   }
 `;
