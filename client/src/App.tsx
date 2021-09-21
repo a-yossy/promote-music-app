@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
-import TopPage from 'pages/index';
+import TopPage from 'pages/top';
 import UserPage from 'pages/user';
 import SignupPage from 'pages/signup';
 import Header from 'components/Header';
