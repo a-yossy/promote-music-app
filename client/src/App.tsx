@@ -16,9 +16,7 @@ export const client = new ApolloClient({
 const App: FC = () => (
   <ApolloProvider client={client}>
     <BrowserRouter>
-      <header>
-        <Header />
-      </header>
+      <Header />
       <Routes>
         <Route path="/" element={<TopPage />} />
         <Route path="signup" element={<SignupPage />} />
