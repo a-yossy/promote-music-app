@@ -3,6 +3,7 @@ import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import TopPage from 'pages/top';
 import UserPage from 'pages/user';
 import SignupPage from 'pages/signup';
+import LoginPage from 'pages/login';
 import Header from 'components/Header';
 import URI from 'constant';
 import { Route, Routes, Navigate } from 'react-router';
@@ -20,6 +21,7 @@ const App: FC = () => (
       <Routes>
         <Route path="/" element={<TopPage />} />
         <Route path="signup" element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="user/:id" element={<UserPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

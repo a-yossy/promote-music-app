@@ -10,7 +10,7 @@ const Header: FC = () => (
       <Link to="signup">ユーザー作成</Link>
     </div>
     <div>
-      <Link to="*">ログイン</Link>
+      <Link to="login">ログイン</Link>
     </div>
   </header>
 );
