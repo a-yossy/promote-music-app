@@ -4,12 +4,19 @@ import { useQuery } from '@apollo/client';
 import Users from 'components/Users';
 
 const TopPage: FC = () => {
-  const { loading, error, data } = useQuery<UsersData>(getUsersQuery);
+  const { loading, error, refetch } = useQuery<UsersData>(getUsersQuery);
   const [users, setUsers] = useState<User[]>([]);
 
+  /* eslint no-console: ["error", { allow: ["error"] }] */
   useEffect(() => {
-    if (data) setUsers(data.users);
-  }, [data]);
+    refetch()
+      .then((res) => {
+        setUsers(res.data.users);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, [refetch]);
 
   if (loading) return <>Loading</>;
   if (error) return <>Error: {error.message}</>;
