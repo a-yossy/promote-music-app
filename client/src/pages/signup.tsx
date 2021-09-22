@@ -1,11 +1,12 @@
 import React, { FC, useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { createUserMutation } from 'lib/user';
+import { createUserMutation, UserData } from 'lib/user';
 import { useNavigate } from 'react-router';
 
 const SignupPage: FC = () => {
   const navigate = useNavigate();
-  const [createUser, { loading, error }] = useMutation(createUserMutation);
+  const [createUser, { loading, error }] =
+    useMutation<{ createUser: UserData }>(createUserMutation);
   const [value, setValue] = useState<string>('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,10 +17,18 @@ const SignupPage: FC = () => {
   const handleClick = () => {
     createUser({ variables: { name: value } })
       .then((res) => {
+
+
+
+
         localStorage.setItem(
           'loginUser',
-          /* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */ /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
-          JSON.stringify({ id: res.data.createUser.user.id, name: res.data.createUser.user.name }),
+          JSON.stringify(
+            {
+              id: res.data?.createUser.user.id,
+              name: res.data?.createUser.user.name,
+            } || '[]',
+          ),
         );
         navigate('/');
       })
