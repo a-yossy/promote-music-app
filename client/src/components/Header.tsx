@@ -18,7 +18,7 @@ const Header: FC = () => {
       </h1>
       {user?.name ? (
         <div>
-          <Link to="/">ログアウト</Link>
+          <Link to="/signout">ログアウト</Link>
         </div>
       ) : (
         <>
