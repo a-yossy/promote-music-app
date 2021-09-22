@@ -1,19 +1,12 @@
 import { FC, useState, useEffect } from 'react';
-import { useQuery } from '@apollo/client';
-import { UsersData, getUsersQuery, User } from 'lib/user';
+import { useLazyQuery } from '@apollo/client';
+import { User, getUserByNameQuery, getUserByNameInput } from 'lib/user';
 import { useNavigate } from 'react-router';
-import Login from 'lib/login';
 
 const LoginPage: FC = () => {
   const [value, setValue] = useState<string>('');
-  const { loading, error, data } = useQuery<UsersData>(getUsersQuery);
-  const [users, setUsers] = useState<User[]>([]);
-  const [loginError, setLoginError] = useState<boolean>(false);
+  const [ getUserByName,{ loading, error, data } ] = useLazyQuery<{ userByName: User }, getUserByNameInput>(getUserByNameQuery);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (data) setUsers(data.users);
-  }, [data]);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('loginUser') || '[]') as User;
@@ -26,20 +19,20 @@ const LoginPage: FC = () => {
     setValue(event.target.value);
   };
 
-  const handleClick = () => {
-    const id = Login(users, value);
-    if (id === 0) {
-      setLoginError(true);
-    } else {
-      const user = { id, name: value };
-      localStorage.setItem('loginUser', JSON.stringify(user));
+  useEffect(() => {
+    if (data) {
+      localStorage.setItem('loginUser', data.userByName.name);
       navigate('/');
     }
+  }, [data, navigate])
+
+
+  const handleClick = () => {
+    getUserByName({ variables: { name: value } })
   };
 
   if (loading) return <>Loading</>;
   if (error) return <>Error: {error.message}</>;
-  if (loginError) return <>User not found.</>;
 
   return (
     <>
