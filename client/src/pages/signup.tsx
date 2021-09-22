@@ -15,8 +15,13 @@ const SignupPage: FC = () => {
   /* eslint no-console: ["error", { allow: ["error"] }] */
   const handleClick = () => {
     createUser({ variables: { name: value } })
-      .then((_) => {
-        navigate({ pathname: '/' }, { replace: true });
+      .then((res) => {
+        localStorage.setItem(
+          'loginUser',
+          /* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */ /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
+          JSON.stringify({ id: res.data.createUser.user.id, name: res.data.createUser.user.name }),
+        );
+        navigate('/');
       })
       .catch((e) => {
         console.error(e);
