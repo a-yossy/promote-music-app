@@ -22,6 +22,17 @@ module Types
       User.all
     end
 
+    field :login_user, Types::UserType, null: false do
+      argument :name, String, required: true
+    end
+    def login_user(name:)
+      if user = User.find_by(name: name)
+        user
+      else
+        raise GraphQL::ExecutionError, "User not found."
+      end
+    end
+
     # TODO: remove me
     field :test_field, String, null: false,
       description: "An example field added by the generator"
