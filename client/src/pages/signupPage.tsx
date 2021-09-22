@@ -2,7 +2,7 @@ import { FC, useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import { createUserMutation, UserData } from 'lib/user';
 import { useNavigate } from 'react-router';
-import { LOCAL_STORAGE_KEY } from 'constant';
+import localStorageGetItem from 'lib/localStorageGetItem';
 
 const SignupPage: FC = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const SignupPage: FC = () => {
   };
 
   useEffect(() => {
-    const userName = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const userName = localStorageGetItem();
     if (userName) {
       navigate('/');
     }
