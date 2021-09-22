@@ -22,10 +22,10 @@ module Types
       User.all
     end
 
-    field :login_user, Types::UserType, null: false do
+    field :user_by_name, Types::UserType, null: false do
       argument :name, String, required: true
     end
-    def login_user(name:)
+    def user_by_name(name:)
       if user = User.find_by(name: name)
         user
       else
