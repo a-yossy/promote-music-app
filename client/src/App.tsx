@@ -5,7 +5,7 @@ import UserPage from 'pages/userPage';
 import SignupPage from 'pages/signupPage';
 import LoginPage from 'pages/loginPage';
 import Header from 'components/Header';
-import URI from 'constant';
+import { URI } from 'constant';
 import { Route, Routes, Navigate } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 

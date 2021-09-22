@@ -2,6 +2,7 @@ import { FC, useState, useEffect } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { User, getUserByNameQuery, getUserByNameInput } from 'lib/user';
 import { useNavigate } from 'react-router';
+import { USER_NAME } from 'constant';
 
 const LoginPage: FC = () => {
   const [value, setValue] = useState<string>('');
@@ -9,8 +10,7 @@ const LoginPage: FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userName = localStorage.getItem('loginUser');
-    if (userName) {
+    if (USER_NAME) {
       navigate('/');
     }
   }, [navigate]);

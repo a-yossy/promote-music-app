@@ -2,6 +2,7 @@ import { FC, useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import { createUserMutation, UserData } from 'lib/user';
 import { useNavigate } from 'react-router';
+import { USER_NAME } from 'constant';
 
 const SignupPage: FC = () => {
   const navigate = useNavigate();
@@ -14,8 +15,7 @@ const SignupPage: FC = () => {
   };
 
   useEffect(() => {
-    const userName = localStorage.getItem('loginUser');
-    if (userName) {
+    if (USER_NAME) {
       navigate('/');
     }
   }, [navigate]);
