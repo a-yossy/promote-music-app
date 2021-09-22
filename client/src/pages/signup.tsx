@@ -1,6 +1,6 @@
-import React, { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
-import { createUserMutation, UserData } from 'lib/user';
+import { createUserMutation, User, UserData } from 'lib/user';
 import { useNavigate } from 'react-router';
 
 const SignupPage: FC = () => {
@@ -12,6 +12,15 @@ const SignupPage: FC = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('loginUser') || '[]') as
+      | User
+      | undefined;
+    if (user?.name) {
+      navigate('/');
+    }
+  });
 
   /* eslint no-console: ["error", { allow: ["error"] }] */
   const handleClick = () => {
