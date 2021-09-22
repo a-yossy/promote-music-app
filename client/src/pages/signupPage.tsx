@@ -1,6 +1,6 @@
 import { FC, useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
-import { createUserMutation, User, UserData } from 'lib/user';
+import { createUserMutation, UserData } from 'lib/user';
 import { useNavigate } from 'react-router';
 
 const SignupPage: FC = () => {
@@ -14,8 +14,8 @@ const SignupPage: FC = () => {
   };
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('loginUser') || '[]') as User;
-    if (user?.name) {
+    const userName = localStorage.getItem('loginUser');
+    if (userName) {
       navigate('/');
     }
   });
@@ -26,10 +26,7 @@ const SignupPage: FC = () => {
       .then((res) => {
         localStorage.setItem(
           'loginUser',
-          JSON.stringify({
-            id: res.data?.createUser.user.id,
-            name: res.data?.createUser.user.name,
-          }),
+          res.data?.createUser.user.name as string,
         );
         navigate('/');
       })

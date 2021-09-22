@@ -1,14 +1,13 @@
 import { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { User } from 'lib/user';
 import { useLocation } from 'react-router';
 
 const Header: FC = () => {
-  const [user, setUser] = useState<User | undefined>();
+  const [userName, setUserName] = useState<string>('');
   const location = useLocation();
 
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem('loginUser') || '[]'));
+    setUserName(localStorage.getItem('loginUser') || '');
   }, [location]);
 
   return (
@@ -16,7 +15,7 @@ const Header: FC = () => {
       <h1>
         <Link to="/">Promote Music App</Link>
       </h1>
-      {user?.name ? (
+      {userName ? (
         <div>
           <Link to="/">ログアウト</Link>
         </div>

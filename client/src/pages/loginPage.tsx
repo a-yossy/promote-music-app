@@ -9,8 +9,8 @@ const LoginPage: FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('loginUser') || '[]') as User;
-    if (user?.name) {
+    const userName = localStorage.getItem('loginUser');
+    if (userName) {
       navigate('/');
     }
   });
