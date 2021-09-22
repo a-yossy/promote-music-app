@@ -8,24 +8,29 @@ import Header from 'components/Header';
 import { URI } from 'constant';
 import { Route, Routes, Navigate } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
+import localStorageGetItem from 'lib/localStorageGetItem';
 
 export const client = new ApolloClient({
   cache: new InMemoryCache(),
   uri: URI,
 });
 
-const App: FC = () => (
+const App: FC = () => {
+  const userName = localStorageGetItem();
+
+  return(
   <ApolloProvider client={client}>
     <BrowserRouter>
       <Header />
       <Routes>
         <Route path="/" element={<TopPage />} />
-        <Route path="signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="signup" element={userName ? <Navigate to="/" /> : <SignupPage />} />
+        <Route path="/login" element={userName ? <Navigate to="/" /> : <LoginPage />} />
         <Route path="user/:id" element={<UserPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   </ApolloProvider>
-);
+  )
+};
 export default App;

@@ -1,8 +1,7 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { createUserMutation, UserData } from 'lib/user';
 import { useNavigate } from 'react-router';
-import localStorageGetItem from 'lib/localStorageGetItem';
 
 const SignupPage: FC = () => {
   const navigate = useNavigate();
@@ -13,13 +12,6 @@ const SignupPage: FC = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
-
-  useEffect(() => {
-    const userName = localStorageGetItem();
-    if (userName) {
-      navigate('/');
-    }
-  }, [navigate]);
 
   /* eslint no-console: ["error", { allow: ["error"] }] */
   const handleClick = () => {
