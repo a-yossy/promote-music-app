@@ -8,7 +8,7 @@ import Header from 'components/Header';
 import { URI } from 'constant';
 import { Route, Routes, Navigate } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
-import localStorageGetItem from 'lib/localStorageGetItem';
+import getLoginUserName from 'lib/getLoginUserName';
 
 export const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -16,7 +16,7 @@ export const client = new ApolloClient({
 });
 
 const App: FC = () => {
-  const userName = localStorageGetItem();
+  const userName = getLoginUserName();
 
   return(
   <ApolloProvider client={client}>

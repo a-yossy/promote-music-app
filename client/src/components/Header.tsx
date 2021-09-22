@@ -1,14 +1,14 @@
 import { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router';
-import localStorageGetItem from 'lib/localStorageGetItem';
+import getLoginUserName from 'lib/getLoginUserName';
 
 const Header: FC = () => {
   const [userName, setUserName] = useState<string>('');
   const location = useLocation();
 
   useEffect(() => {
-    const localStorageUserName = localStorageGetItem();
+    const localStorageUserName = getLoginUserName();
     setUserName(localStorageUserName || '');
   }, [location]);
 
