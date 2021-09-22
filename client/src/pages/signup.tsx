@@ -26,12 +26,10 @@ const SignupPage: FC = () => {
       .then((res) => {
         localStorage.setItem(
           'loginUser',
-          JSON.stringify(
-            {
-              id: res.data?.createUser.user.id,
-              name: res.data?.createUser.user.name,
-            } || '[]',
-          ),
+          JSON.stringify({
+            id: res.data?.createUser.user.id,
+            name: res.data?.createUser.user.name,
+          }),
         );
         navigate('/');
       })
