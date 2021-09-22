@@ -9,7 +9,7 @@ const Header: FC = () => {
 
   useEffect(() => {
     const localStorageUserName = getLoginUserName();
-    setUserName(localStorageUserName || '');
+    setUserName(localStorageUserName);
   }, [location]);
 
   return (
