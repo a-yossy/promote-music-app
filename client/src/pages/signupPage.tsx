@@ -18,7 +18,7 @@ const SignupPage: FC = () => {
     if (userName) {
       navigate('/');
     }
-  });
+  }, [navigate]);
 
   /* eslint no-console: ["error", { allow: ["error"] }] */
   const handleClick = () => {

@@ -13,7 +13,7 @@ const LoginPage: FC = () => {
     if (userName) {
       navigate('/');
     }
-  });
+  }, [navigate]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
