@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
-import TopPage from 'pages/top';
-import UserPage from 'pages/user';
-import SignupPage from 'pages/signup';
-import LoginPage from 'pages/login';
+import TopPage from 'pages/topPage';
+import UserPage from 'pages/userPage';
+import SignupPage from 'pages/signupPage';
+import LoginPage from 'pages/loginPage';
 import Header from 'components/Header';
 import URI from 'constant';
 import { Route, Routes, Navigate } from 'react-router';
