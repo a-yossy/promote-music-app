@@ -17,10 +17,6 @@ const SignupPage: FC = () => {
   const handleClick = () => {
     createUser({ variables: { name: value } })
       .then((res) => {
-
-
-
-
         localStorage.setItem(
           'loginUser',
           JSON.stringify(
