@@ -15,6 +15,15 @@ const LoginPage: FC = () => {
     if (data) setUsers(data.users);
   }, [data]);
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('loginUser') || '[]') as
+      | User
+      | undefined;
+    if (user?.name) {
+      navigate('/');
+    }
+  });
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
