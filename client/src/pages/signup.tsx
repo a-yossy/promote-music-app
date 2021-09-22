@@ -14,9 +14,7 @@ const SignupPage: FC = () => {
   };
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('loginUser') || '[]') as
-      | User
-      | undefined;
+    const user = JSON.parse(localStorage.getItem('loginUser') || '[]') as User;
     if (user?.name) {
       navigate('/');
     }
