@@ -1,27 +1,29 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { User, getUserByNameQuery, getUserByNameInput } from 'lib/user';
 import { useNavigate } from 'react-router';
 
 const LoginPage: FC = () => {
-  const [value, setValue] = useState<string>('');
-  const [ getUserByName,{ loading, error, data } ] = useLazyQuery<{ userByName: User }, getUserByNameInput>(getUserByNameQuery);
   const navigate = useNavigate();
+  const [value, setValue] = useState<string>('');
+  const [getUserByName, { loading, error }] = useLazyQuery<
+    { userByName: User },
+    getUserByNameInput
+  >(getUserByNameQuery, {
+    onCompleted: (data) => {
+      if (data) {
+        localStorage.setItem('loginUser', data.userByName.name);
+        navigate('/');
+      }
+    },
+  });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
 
-  useEffect(() => {
-    if (data) {
-      localStorage.setItem('loginUser', data.userByName.name);
-      navigate('/');
-    }
-  }, [data, navigate])
-
-
   const handleClick = () => {
-    getUserByName({ variables: { name: value } })
+    getUserByName({ variables: { name: value } });
   };
 
   if (loading) return <>Loading</>;
