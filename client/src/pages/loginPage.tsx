@@ -23,7 +23,7 @@ const LoginPage: FC = () => {
     setValue(event.target.value);
   };
 
-  const handleClick = () => {
+  const handleLogin = () => {
     getUserByName({ variables: { name: value } });
   };
 
@@ -33,7 +33,7 @@ const LoginPage: FC = () => {
   return (
     <>
       <input value={value} type="text" onChange={handleChange} />
-      <button type="submit" onClick={handleClick}>
+      <button type="submit" onClick={handleLogin}>
         ログイン
       </button>
     </>
