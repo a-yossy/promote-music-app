@@ -25,7 +25,7 @@ const App: FC = () => {
       <Routes>
         <Route path="/" element={<TopPage />} />
         <Route path="signup" element={userName ? <Navigate to="/" /> : <SignupPage />} />
-        <Route path="/login" element={userName ? <Navigate to="/" /> : <LoginPage />} />
+        <Route path="login" element={userName ? <Navigate to="/" /> : <LoginPage />} />
         <Route path="user/:id" element={<UserPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
