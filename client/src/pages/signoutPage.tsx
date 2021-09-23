@@ -1,17 +1,14 @@
 import { FC, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { User } from 'lib/user';
+import getLoginUserName from 'lib/getLoginUserName';
+import logout from 'lib/logout';
 
 const SignoutPage: FC = () => {
   const navigate = useNavigate();
 
-  const logout = () => {
-    localStorage.removeItem('loginUser');
-  };
-
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('loginUser') || '[]') as User;
-    if (user?.name) {
+    const user = getLoginUserName();
+    if (user) {
       logout();
     }
     navigate('/');
