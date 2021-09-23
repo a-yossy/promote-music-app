@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { User, getUserByNameQuery, getUserByNameInput } from 'lib/user';
 import { useNavigate } from 'react-router';
+import setLoginUserName from 'lib/setLoginUserName';
 
 const LoginPage: FC = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const LoginPage: FC = () => {
   >(getUserByNameQuery, {
     onCompleted: (data) => {
       if (data) {
-        localStorage.setItem('loginUser', data.userByName.name);
+        setLoginUserName(data.userByName.name);
         navigate('/');
       }
     },

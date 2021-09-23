@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { createUserMutation, UserData } from 'lib/user';
 import { useNavigate } from 'react-router';
+import setLoginUserName from 'lib/setLoginUserName';
 
 const SignupPage: FC = () => {
   const navigate = useNavigate();
@@ -17,10 +18,7 @@ const SignupPage: FC = () => {
   const handleClick = () => {
     createUser({ variables: { name: value } })
       .then((res) => {
-        localStorage.setItem(
-          'loginUser',
-          res.data?.createUser.user.name as string,
-        );
+        setLoginUserName(res.data?.createUser.user.name as string);
         navigate('/');
       })
       .catch((e) => {
