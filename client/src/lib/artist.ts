@@ -17,3 +17,14 @@ export const getArtistsQuery = gql`
     }
   }
 `;
+
+export const createArtistMutation = gql`
+  mutation CreateArtist($name: String!) {
+    createArtist(name: $name) {
+      artist {
+        id
+        name
+      }
+    }
+  }
+`;
