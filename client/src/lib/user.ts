@@ -15,8 +15,12 @@ export type UserData = {
   user: User;
 };
 
-export type getUserById = {
+export type getUserByIdInput = {
   id: number;
+};
+
+export type getUserByNameInput = {
+  name: string;
 };
 
 export const getUsersQuery = gql`
@@ -36,6 +40,15 @@ export const getUserByIdQuery = gql`
         id
         name
       }
+    }
+  }
+`;
+
+export const getUserByNameQuery = gql`
+  query UserByName($name: String!) {
+    userByName(name: $name) {
+      id
+      name
     }
   }
 `;

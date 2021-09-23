@@ -1,11 +1,13 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { createUserMutation } from 'lib/user';
+import { createUserMutation, UserData } from 'lib/user';
 import { useNavigate } from 'react-router';
+import setLoginUserName from 'lib/setLoginUserName';
 
 const SignupPage: FC = () => {
   const navigate = useNavigate();
-  const [createUser, { loading, error }] = useMutation(createUserMutation);
+  const [createUser, { loading, error }] =
+    useMutation<{ createUser: UserData }>(createUserMutation);
   const [value, setValue] = useState<string>('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,8 +17,9 @@ const SignupPage: FC = () => {
   /* eslint no-console: ["error", { allow: ["error"] }] */
   const handleClick = () => {
     createUser({ variables: { name: value } })
-      .then((_) => {
-        navigate({ pathname: '/' }, { replace: true });
+      .then((res) => {
+        setLoginUserName(res.data?.createUser.user.name as string);
+        navigate('/');
       })
       .catch((e) => {
         console.error(e);
