@@ -4,6 +4,7 @@ import TopPage from 'pages/topPage';
 import UserPage from 'pages/userPage';
 import SignupPage from 'pages/signupPage';
 import LoginPage from 'pages/loginPage';
+import ArtistPage from 'pages/artistPage';
 import Header from 'components/Header';
 import { URI } from 'constant';
 import { Route, Routes, Navigate } from 'react-router';
@@ -33,6 +34,7 @@ const App: FC = () => {
             element={userName ? <Navigate to="/" /> : <LoginPage />}
           />
           <Route path="user/:id" element={<UserPage />} />
+          <Route path="artists" element={<ArtistPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>

@@ -5,6 +5,10 @@ export type Artist = {
   name: string;
 };
 
+export type ArtistsData = {
+  artists: Artist[];
+};
+
 export const getArtistsQuery = gql`
   query Artists {
     artists {

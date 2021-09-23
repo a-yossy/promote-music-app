@@ -24,6 +24,9 @@ const Header: FC = () => {
       <h1>
         <Link to="/">Promote Music App</Link>
       </h1>
+      <div>
+        <Link to="artists">アーティスト一覧</Link>
+      </div>
       {userName ? (
         <button type="button" onClick={handleLogout}>
           ログアウト
