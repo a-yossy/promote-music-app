@@ -10,7 +10,7 @@ import {
 import Artists from 'components/Artists';
 
 const ArtistPage: FC = () => {
-  const { loading, error, data } = useQuery<ArtistsData>(getArtistsQuery);
+  const { loading, error, refetch } = useQuery<ArtistsData>(getArtistsQuery);
   const [createArtist, { error: mutationError, loading: mutationLoading }] =
     useMutation<{ createArtist: Artist }, createArtistInput>(
       createArtistMutation,
@@ -31,10 +31,14 @@ const ArtistPage: FC = () => {
   };
 
   useEffect(() => {
-    if (data) {
-      setArtists(data.artists);
-    }
-  }, [data]);
+    refetch()
+      .then((res) => {
+        setArtists(res.data.artists);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, [refetch, mutationLoading]);
 
   if (loading || mutationLoading) return <>Loading</>;
   if (error) return <>Error: {error.message}</>;
