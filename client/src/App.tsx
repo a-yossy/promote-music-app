@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
-import SignoutPage from 'pages/signoutPage';
 import TopPage from 'pages/topPage';
 import UserPage from 'pages/userPage';
 import SignupPage from 'pages/signupPage';
@@ -25,7 +24,6 @@ const App: FC = () => {
       <Header />
       <Routes>
         <Route path="/" element={<TopPage />} />
-        <Route path="signout" element={<SignoutPage />} />
         <Route path="signup" element={userName ? <Navigate to="/" /> : <SignupPage />} />
         <Route path="login" element={userName ? <Navigate to="/" /> : <LoginPage />} />
         <Route path="user/:id" element={<UserPage />} />
