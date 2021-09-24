@@ -10,7 +10,8 @@ import {
 import Artists from 'components/Artists';
 
 const ArtistPage: FC = () => {
-  const { loading, error, refetch } = useQuery<ArtistsData>(getArtistsQuery);
+  const { loading, error, data, refetch } =
+    useQuery<ArtistsData>(getArtistsQuery);
   const [createArtist, { error: mutationError, loading: mutationLoading }] =
     useMutation<{ createArtist: Artist }, createArtistInput>(
       createArtistMutation,
@@ -24,21 +25,27 @@ const ArtistPage: FC = () => {
 
   /* eslint no-console: ["error", { allow: ["error"] }] */
   const handleCreateArtist = () => {
-    createArtist({ variables: { name: value } }).catch((e) => {
-      console.error(e);
-    });
-    setValue('');
-  };
-
-  useEffect(() => {
-    refetch()
-      .then((res) => {
-        setArtists(res.data.artists);
+    createArtist({ variables: { name: value } })
+      .then((_) => {
+        refetch()
+          .then((res) => {
+            setArtists(res.data.artists);
+          })
+          .catch((e) => {
+            console.error(e);
+          });
       })
       .catch((e) => {
         console.error(e);
       });
-  }, [refetch, mutationLoading]);
+    setValue('');
+  };
+
+  useEffect(() => {
+    if (data) {
+      setArtists(data.artists);
+    }
+  }, [data]);
 
   if (loading || mutationLoading) return <>Loading</>;
   if (error) return <>Error: {error.message}</>;
