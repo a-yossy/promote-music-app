@@ -19,7 +19,7 @@ export type getUserByIdInput = {
   id: number;
 };
 
-export type getUserByNameInput = {
+export type userByNameInput = {
   name: string;
 };
 

@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
-import { User, getUserByNameQuery, getUserByNameInput } from 'lib/user';
+import { User, getUserByNameQuery, userByNameInput } from 'lib/user';
 import { useNavigate } from 'react-router';
 import setLoginUserName from 'lib/setLoginUserName';
 
@@ -9,7 +9,7 @@ const LoginPage: FC = () => {
   const [value, setValue] = useState<string>('');
   const [getUserByName, { loading, error }] = useLazyQuery<
     { userByName: User },
-    getUserByNameInput
+    userByNameInput
   >(getUserByNameQuery, {
     onCompleted: (data) => {
       if (data) {

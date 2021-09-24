@@ -1,13 +1,15 @@
 import { FC, useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { createUserMutation, UserData } from 'lib/user';
+import { createUserMutation, UserData, userByNameInput } from 'lib/user';
 import { useNavigate } from 'react-router';
 import setLoginUserName from 'lib/setLoginUserName';
 
 const SignupPage: FC = () => {
   const navigate = useNavigate();
-  const [createUser, { loading, error }] =
-    useMutation<{ createUser: UserData }>(createUserMutation);
+  const [createUser, { loading, error }] = useMutation<
+    { createUser: UserData },
+    userByNameInput
+  >(createUserMutation);
   const [value, setValue] = useState<string>('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
