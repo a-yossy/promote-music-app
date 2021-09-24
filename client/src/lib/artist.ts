@@ -9,11 +9,26 @@ export type ArtistsData = {
   artists: Artist[];
 };
 
+export type createArtistInput = {
+  name: string;
+};
+
 export const getArtistsQuery = gql`
   query Artists {
     artists {
       id
       name
+    }
+  }
+`;
+
+export const createArtistMutation = gql`
+  mutation CreateArtist($name: String!) {
+    createArtist(input: { name: $name }) {
+      artist {
+        id
+        name
+      }
     }
   }
 `;
