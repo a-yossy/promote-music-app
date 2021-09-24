@@ -3,6 +3,8 @@ import { useLazyQuery } from '@apollo/client';
 import { User, getUserByNameQuery, userByNameInput } from 'lib/user';
 import { useNavigate } from 'react-router';
 import setLoginUserName from 'lib/setLoginUserName';
+import Button from '@mui/material/Button';
+import Input from '@mui/material/Input';
 
 const LoginPage: FC = () => {
   const navigate = useNavigate();
@@ -32,10 +34,14 @@ const LoginPage: FC = () => {
 
   return (
     <>
-      <input value={value} type="text" onChange={handleChange} />
-      <button type="submit" onClick={handleLogin}>
+      <Input
+        value={value}
+        onChange={handleChange}
+        sx={{ ml: 3, mt: 4, mb: 2 }}
+      />
+      <Button onClick={handleLogin} size="small" variant="contained">
         ログイン
-      </button>
+      </Button>
     </>
   );
 };

@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { User } from 'lib/user';
 import UserListElement from 'components/UserListElement';
+import Grid from '@mui/material/Grid';
 
 type UsersProps = {
   users: User[];
@@ -8,9 +9,11 @@ type UsersProps = {
 
 const Users: FC<UsersProps> = ({ users }) => (
   <>
-    {users.map((user) => (
-      <UserListElement key={user.id} user={user} />
-    ))}
+    <Grid container sx={{ width: 1200 }}>
+      {users.map((user) => (
+        <UserListElement key={user.id} user={user} />
+      ))}
+    </Grid>
   </>
 );
 

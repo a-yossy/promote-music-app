@@ -1,26 +1,27 @@
 import { FC, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { getUserByIdQuery, UserData, getUserByIdInput } from 'lib/user';
+import { getUserByNameQuery, userByNameInput, User } from 'lib/user';
 import { Artist } from 'lib/artist';
 import Artists from 'components/Artists';
+import { Typography, Grid } from '@mui/material';
 
 const UserPage: FC = () => {
   const params = useParams();
-  const userId = Number(params.id);
-  const { loading, error, data } = useQuery<UserData, getUserByIdInput>(
-    getUserByIdQuery,
-    {
-      variables: { id: userId },
-    },
-  );
+  const paramsUserName = params.name;
+  const { loading, error, data } = useQuery<
+    { userByName: User },
+    userByNameInput
+  >(getUserByNameQuery, {
+    variables: { name: paramsUserName || '' },
+  });
   const [userName, setUserName] = useState<string>('');
   const [artists, setArtists] = useState<Artist[]>([]);
 
   useEffect(() => {
     if (data) {
-      setUserName(data.user.name);
-      setArtists(data.user.artists);
+      setUserName(data.userByName.name);
+      setArtists(data.userByName.artists);
     }
   }, [data]);
 
@@ -29,8 +30,12 @@ const UserPage: FC = () => {
 
   return (
     <>
-      <h1>{userName}</h1>
-      <Artists artists={artists} />
+      <Typography variant="h5" color="#9e9e9e" sx={{ ml: 3, mt: 4, mb: 2 }}>
+        {userName}
+      </Typography>
+      <Grid container justifyContent="center">
+        <Artists artists={artists} card />
+      </Grid>
     </>
   );
 };

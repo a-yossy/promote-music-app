@@ -1,12 +1,26 @@
 import { FC } from 'react';
 import { Artist } from 'lib/artist';
+import { Card, CardContent, Typography, Grid } from '@mui/material';
 
 type ArtistListElementProps = {
   artist: Artist;
+  card: boolean;
 };
 
-const ArtistListElement: FC<ArtistListElementProps> = ({ artist }) => (
-  <div>{artist.name}</div>
+const ArtistListElement: FC<ArtistListElementProps> = ({ artist, card }) => (
+  <>
+    {card ? (
+      <Grid item xs={6}>
+        <Card sx={{ width: 550, backgroundColor: '#e1f5fe', m: 2 }}>
+          <CardContent>
+            <Typography variant="h5">{artist.name}</Typography>
+          </CardContent>
+        </Card>
+      </Grid>
+    ) : (
+      <div>{artist.name}</div>
+    )}
+  </>
 );
 
 export default ArtistListElement;
