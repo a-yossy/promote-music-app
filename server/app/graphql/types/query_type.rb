@@ -33,6 +33,11 @@ module Types
       end
     end
 
+    field :artists, [Types::ArtistType], null: false
+    def artists
+      Artist.all
+    end
+
     # TODO: remove me
     field :test_field, String, null: false,
       description: "An example field added by the generator"
