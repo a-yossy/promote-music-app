@@ -27,53 +27,51 @@ const Header: FC = () => {
   }, [location]);
 
   return (
-    <>
-      <AppBar elevation={0} color="inherit" position="static">
-        <Toolbar>
-          <Link to="/" style={{ textDecoration: 'none', flexGrow: 1 }}>
-            <Typography color="black" variant="h4">
-              Promote Music App
-            </Typography>
-          </Link>
+    <AppBar elevation={0} color="inherit" position="static">
+      <Toolbar>
+        <Link to="/" style={{ textDecoration: 'none', flexGrow: 1 }}>
+          <Typography color="black" variant="h4">
+            Promote Music App
+          </Typography>
+        </Link>
 
-          <Link to="artists">
-            <IconButton>
-              <PeopleOutlineIcon />
+        <Link to="artists">
+          <IconButton>
+            <PeopleOutlineIcon />
+          </IconButton>
+        </Link>
+        {userName ? (
+          <>
+            <Link to={`user/${userName}`}>
+              <IconButton>
+                <AccountBoxIcon />
+              </IconButton>
+            </Link>
+
+            <IconButton onClick={handleLogout}>
+              <LogoutIcon />
             </IconButton>
-          </Link>
-          {userName ? (
-            <>
-              <Link to={`user/${userName}`}>
+          </>
+        ) : (
+          <>
+            <div>
+              <Link to="signup">
                 <IconButton>
-                  <AccountBoxIcon />
+                  <PersonAddIcon />
                 </IconButton>
               </Link>
-
-              <IconButton onClick={handleLogout}>
-                <LogoutIcon />
-              </IconButton>
-            </>
-          ) : (
-            <>
-              <div>
-                <Link to="signup">
-                  <IconButton>
-                    <PersonAddIcon />
-                  </IconButton>
-                </Link>
-              </div>
-              <div>
-                <Link to="login">
-                  <IconButton edge="end">
-                    <LoginIcon />
-                  </IconButton>
-                </Link>
-              </div>
-            </>
-          )}
-        </Toolbar>
-      </AppBar>
-    </>
+            </div>
+            <div>
+              <Link to="login">
+                <IconButton edge="end">
+                  <LoginIcon />
+                </IconButton>
+              </Link>
+            </div>
+          </>
+        )}
+      </Toolbar>
+    </AppBar>
   );
 };
 
