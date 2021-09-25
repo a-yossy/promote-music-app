@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import Artists from 'components/Artists';
+import ArtistsCard from 'components/ArtistsCard';
 import {
   ArtistsData,
   getArtistsQuery,
@@ -65,7 +65,7 @@ const ArtistPage: FC = () => {
         登録
       </Button>
       <Grid container justifyContent="center">
-        <Artists artists={artists} card />
+        <ArtistsCard artists={artists} />
       </Grid>
     </>
   );

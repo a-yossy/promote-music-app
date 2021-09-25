@@ -19,7 +19,7 @@ const UserListElement: FC<UserListElementProps> = ({ user }) => (
     <Card sx={{ width: 550, height: 180, backgroundColor: '#e0f7fa', m: 2 }}>
       <CardContent>
         <Typography variant="h5">{user.name}</Typography>
-        <Artists artists={user.artists.slice(0, 3)} card={false} />
+        <Artists artists={user.artists.slice(0, 3)} />
       </CardContent>
       <CardActions>
         <Typography variant="body2">

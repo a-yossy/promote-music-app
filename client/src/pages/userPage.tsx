@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { getUserByNameQuery, userByNameInput, User } from 'lib/user';
 import { Artist } from 'lib/artist';
-import Artists from 'components/Artists';
+import ArtistsCard from 'components/ArtistsCard';
 import { Typography, Grid } from '@mui/material';
 
 const UserPage: FC = () => {
@@ -34,7 +34,7 @@ const UserPage: FC = () => {
         {userName}
       </Typography>
       <Grid container justifyContent="center">
-        <Artists artists={artists} card />
+        <ArtistsCard artists={artists} />
       </Grid>
     </>
   );

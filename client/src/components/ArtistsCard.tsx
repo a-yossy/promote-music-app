@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Artist } from 'lib/artist';
-import ArtistListElement from 'components/ArtistListElement';
+import ArtistListElementCard from 'components/ArtistListElementCard';
+import Grid from '@mui/material/Grid';
 
 type ArtistsProps = {
   artists: Artist[];
@@ -8,11 +9,11 @@ type ArtistsProps = {
 
 const Artists: FC<ArtistsProps> = ({ artists }) => (
   <>
-    <>
+    <Grid container sx={{ width: 1200 }}>
       {artists.map((artist) => (
-        <ArtistListElement key={artist.id} artist={artist} />
+        <ArtistListElementCard key={artist.id} artist={artist} />
       ))}
-    </>
+    </Grid>
   </>
 );
 
