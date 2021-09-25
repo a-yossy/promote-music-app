@@ -33,7 +33,7 @@ const App: FC = () => {
             path="login"
             element={userName ? <Navigate to="/" /> : <LoginPage />}
           />
-          <Route path="user/:id" element={<UserPage />} />
+          <Route path="user/:name" element={<UserPage />} />
           <Route path="artists" element={<ArtistPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

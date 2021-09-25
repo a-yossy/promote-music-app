@@ -8,9 +8,11 @@ type ArtistsProps = {
 
 const Artists: FC<ArtistsProps> = ({ artists }) => (
   <>
-    {artists.map((artist) => (
-      <ArtistListElement key={artist.id} artist={artist} />
-    ))}
+    <>
+      {artists.map((artist) => (
+        <ArtistListElement key={artist.id} artist={artist} />
+      ))}
+    </>
   </>
 );
 

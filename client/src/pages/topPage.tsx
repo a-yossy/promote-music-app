@@ -2,6 +2,7 @@ import { FC, useState, useEffect } from 'react';
 import { getUsersQuery, User, UsersData } from 'lib/user';
 import { useQuery } from '@apollo/client';
 import Users from 'components/Users';
+import Grid from '@mui/material/Grid';
 
 const TopPage: FC = () => {
   const { loading, error, refetch } = useQuery<UsersData>(getUsersQuery);
@@ -21,7 +22,11 @@ const TopPage: FC = () => {
   if (loading) return <>Loading</>;
   if (error) return <>Error: {error.message}</>;
 
-  return <Users users={users} />;
+  return (
+    <Grid container justifyContent="center" sx={{ mt: 2 }}>
+      <Users users={users} />
+    </Grid>
+  );
 };
 
 export default TopPage;

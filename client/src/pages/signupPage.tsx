@@ -3,6 +3,8 @@ import { useMutation } from '@apollo/client';
 import { createUserMutation, UserData, userByNameInput } from 'lib/user';
 import { useNavigate } from 'react-router';
 import setLoginUserName from 'lib/setLoginUserName';
+import Button from '@mui/material/Button';
+import Input from '@mui/material/Input';
 
 const SignupPage: FC = () => {
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ const SignupPage: FC = () => {
   };
 
   /* eslint no-console: ["error", { allow: ["error"] }] */
-  const handleClick = () => {
+  const handleSignup = () => {
     createUser({ variables: { name: value } })
       .then((res) => {
         setLoginUserName(res.data?.createUser.user.name as string);
@@ -33,10 +35,14 @@ const SignupPage: FC = () => {
 
   return (
     <>
-      <input onChange={handleChange} value={value} type="text" />
-      <button type="submit" onClick={handleClick}>
-        登録
-      </button>
+      <Input
+        value={value}
+        onChange={handleChange}
+        sx={{ ml: 3, mt: 4, mb: 2 }}
+      />
+      <Button onClick={handleSignup} variant="contained" size="small">
+        作成
+      </Button>
     </>
   );
 };

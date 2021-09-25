@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { Artist } from './artist';
+import { Artist } from 'lib/artist';
 
 export type User = {
   id: number;
@@ -15,10 +15,6 @@ export type UserData = {
   user: User;
 };
 
-export type getUserByIdInput = {
-  id: number;
-};
-
 export type userByNameInput = {
   name: string;
 };
@@ -27,14 +23,6 @@ export const getUsersQuery = gql`
   query Users {
     users {
       id
-      name
-    }
-  }
-`;
-
-export const getUserByIdQuery = gql`
-  query User($id: ID!) {
-    user(id: $id) {
       name
       artists {
         id
@@ -49,6 +37,10 @@ export const getUserByNameQuery = gql`
     userByName(name: $name) {
       id
       name
+      artists {
+        id
+        name
+      }
     }
   }
 `;

@@ -1,5 +1,6 @@
 import React, { FC, useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
+import ArtistsCard from 'components/ArtistsCard';
 import {
   ArtistsData,
   getArtistsQuery,
@@ -7,7 +8,9 @@ import {
   createArtistInput,
   createArtistMutation,
 } from 'lib/artist';
-import Artists from 'components/Artists';
+import Button from '@mui/material/Button';
+import Input from '@mui/material/Input';
+import Grid from '@mui/material/Grid';
 
 const ArtistPage: FC = () => {
   const { loading, error, data, refetch } =
@@ -53,11 +56,17 @@ const ArtistPage: FC = () => {
 
   return (
     <>
-      <input value={value} onChange={handleChange} />
-      <button type="submit" onClick={handleCreateArtist}>
+      <Input
+        value={value}
+        onChange={handleChange}
+        sx={{ ml: 3, mt: 4, mb: 2 }}
+      />
+      <Button onClick={handleCreateArtist} variant="contained" size="small">
         登録
-      </button>
-      <Artists artists={artists} />
+      </Button>
+      <Grid container justifyContent="center">
+        <ArtistsCard artists={artists} />
+      </Grid>
     </>
   );
 };
