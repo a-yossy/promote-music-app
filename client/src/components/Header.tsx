@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router';
 import getLoginUserName from 'lib/getLoginUserName';
 import logout from 'lib/logout';
-import { AppBar, Typography, IconButton, Toolbar } from '@mui/material';
+import { Typography, IconButton, Toolbar } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
@@ -27,51 +27,49 @@ const Header: FC = () => {
   }, [location]);
 
   return (
-    <AppBar elevation={0} color="inherit" position="static">
-      <Toolbar>
-        <Link to="/" style={{ textDecoration: 'none', flexGrow: 1 }}>
-          <Typography color="black" variant="h4">
-            Promote Music App
-          </Typography>
-        </Link>
+    <Toolbar>
+      <Link to="/" style={{ textDecoration: 'none', flexGrow: 1 }}>
+        <Typography color="black" variant="h4">
+          Promote Music App
+        </Typography>
+      </Link>
 
-        <Link to="artists">
-          <IconButton>
-            <PeopleOutlineIcon />
+      <Link to="artists">
+        <IconButton>
+          <PeopleOutlineIcon />
+        </IconButton>
+      </Link>
+      {userName ? (
+        <>
+          <Link to={`user/${userName}`}>
+            <IconButton>
+              <AccountBoxIcon />
+            </IconButton>
+          </Link>
+
+          <IconButton onClick={handleLogout}>
+            <LogoutIcon />
           </IconButton>
-        </Link>
-        {userName ? (
-          <>
-            <Link to={`user/${userName}`}>
+        </>
+      ) : (
+        <>
+          <div>
+            <Link to="signup">
               <IconButton>
-                <AccountBoxIcon />
+                <PersonAddIcon />
               </IconButton>
             </Link>
-
-            <IconButton onClick={handleLogout}>
-              <LogoutIcon />
-            </IconButton>
-          </>
-        ) : (
-          <>
-            <div>
-              <Link to="signup">
-                <IconButton>
-                  <PersonAddIcon />
-                </IconButton>
-              </Link>
-            </div>
-            <div>
-              <Link to="login">
-                <IconButton edge="end">
-                  <LoginIcon />
-                </IconButton>
-              </Link>
-            </div>
-          </>
-        )}
-      </Toolbar>
-    </AppBar>
+          </div>
+          <div>
+            <Link to="login">
+              <IconButton edge="end">
+                <LoginIcon />
+              </IconButton>
+            </Link>
+          </div>
+        </>
+      )}
+    </Toolbar>
   );
 };
 
