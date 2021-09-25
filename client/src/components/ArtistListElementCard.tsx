@@ -7,15 +7,13 @@ type ArtistListElementProps = {
 };
 
 const ArtistListElement: FC<ArtistListElementProps> = ({ artist }) => (
-  <>
-    <Grid item xs={6}>
-      <Card sx={{ width: 550, backgroundColor: '#e1f5fe', m: 2 }}>
-        <CardContent>
-          <Typography variant="h5">{artist.name}</Typography>
-        </CardContent>
-      </Card>
-    </Grid>
-  </>
+  <Grid item xs={6}>
+    <Card sx={{ width: 550, backgroundColor: '#e1f5fe', m: 2 }}>
+      <CardContent>
+        <Typography variant="h5">{artist.name}</Typography>
+      </CardContent>
+    </Card>
+  </Grid>
 );
 
 export default ArtistListElement;

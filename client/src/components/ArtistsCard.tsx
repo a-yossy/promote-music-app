@@ -8,13 +8,11 @@ type ArtistsProps = {
 };
 
 const Artists: FC<ArtistsProps> = ({ artists }) => (
-  <>
-    <Grid container sx={{ width: 1200 }}>
-      {artists.map((artist) => (
-        <ArtistListElementCard key={artist.id} artist={artist} />
-      ))}
-    </Grid>
-  </>
+  <Grid container sx={{ width: 1200 }}>
+    {artists.map((artist) => (
+      <ArtistListElementCard key={artist.id} artist={artist} />
+    ))}
+  </Grid>
 );
 
 export default Artists;

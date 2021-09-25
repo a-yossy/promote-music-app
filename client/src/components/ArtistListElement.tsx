@@ -6,9 +6,7 @@ type ArtistListElementProps = {
 };
 
 const ArtistListElement: FC<ArtistListElementProps> = ({ artist }) => (
-  <>
-    <div>{artist.name}</div>
-  </>
+  <div>{artist.name}</div>
 );
 
 export default ArtistListElement;
