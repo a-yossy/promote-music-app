@@ -3,6 +3,7 @@ import { getUsersQuery, User, UsersData } from 'lib/user';
 import { useQuery } from '@apollo/client';
 import Users from 'components/Users';
 import Grid from '@mui/material/Grid';
+import { Toaster } from 'react-hot-toast';
 
 const TopPage: FC = () => {
   const { loading, error, refetch } = useQuery<UsersData>(getUsersQuery);
@@ -23,9 +24,12 @@ const TopPage: FC = () => {
   if (error) return <>Error: {error.message}</>;
 
   return (
-    <Grid container justifyContent="center" sx={{ mt: 2 }}>
-      <Users users={users} />
-    </Grid>
+    <>
+      <Toaster />
+      <Grid container justifyContent="center" sx={{ mt: 2 }}>
+        <Users users={users} />
+      </Grid>
+    </>
   );
 };
 
