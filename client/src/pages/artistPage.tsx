@@ -25,27 +25,27 @@ const ArtistPage: FC = () => {
   };
 
   const handleCreateArtist = () => {
-    const toastId = toast.loading('Loading...');
-    const notify = () => toastId;
-    notify();
+    const toastArtistId = toast.loading('Loading...');
+    const artistNotify = () => toastArtistId;
+    artistNotify();
     createArtist({ variables: { name: value } })
       .then((_) => {
         refetch()
           .then((res) => {
             setArtists(res.data.artists);
             toast.success('Artist Created', {
-              id: toastId,
+              id: toastArtistId,
             });
           })
           .catch((e: Error) => {
             toast.error(`${e.message}`, {
-              id: toastId,
+              id: toastArtistId,
             });
           });
       })
       .catch((e: Error) => {
         toast.error(`${e.message}`, {
-          id: toastId,
+          id: toastArtistId,
         });
       });
     setValue('');
