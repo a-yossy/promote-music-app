@@ -10,6 +10,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import toast from 'react-hot-toast';
 
 const Header: FC = () => {
   const [userName, setUserName] = useState<string>('');
@@ -18,6 +19,7 @@ const Header: FC = () => {
 
   const handleLogout = () => {
     logout();
+    toast.success('Logout Is Successful');
     navigate('/');
   };
 
