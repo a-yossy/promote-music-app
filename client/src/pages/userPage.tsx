@@ -25,7 +25,12 @@ const UserPage: FC = () => {
     }
   }, [data]);
 
-  if (loading) return <>Loading</>;
+  if (loading)
+    return (
+      <Typography variant="h5" sx={{ ml: 3, mt: 4, mb: 2 }}>
+        Loading...
+      </Typography>
+    );
   if (error) return <>Error: {error.message}</>;
 
   return (
