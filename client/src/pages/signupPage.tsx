@@ -1,10 +1,11 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import { createUserMutation, UserData, userByNameInput } from 'lib/user';
 import { useNavigate } from 'react-router';
 import setLoginUserName from 'lib/setLoginUserName';
 import { Button, Input } from '@mui/material';
 import toast, { Toaster } from 'react-hot-toast';
+import getLoginUserName from 'lib/getLoginUserName';
 
 const SignupPage: FC = () => {
   const navigate = useNavigate();
@@ -35,6 +36,12 @@ const SignupPage: FC = () => {
       });
     setValue('');
   };
+
+  useEffect(() => {
+    if (getLoginUserName()) {
+      navigate('/');
+    }
+  }, [navigate]);
 
   return (
     <>

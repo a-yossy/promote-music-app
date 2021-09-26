@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { ApolloError, useLazyQuery } from '@apollo/client';
 import { getUserByNameQuery, User, userByNameInput } from 'lib/user';
 import { useNavigate } from 'react-router';
@@ -6,6 +6,7 @@ import setLoginUserName from 'lib/setLoginUserName';
 import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
 import toast, { Toaster } from 'react-hot-toast';
+import getLoginUserName from 'lib/getLoginUserName';
 
 const LoginPage: FC = () => {
   const navigate = useNavigate();
@@ -39,6 +40,12 @@ const LoginPage: FC = () => {
     setToastLoginId(toast.loading('Loading...'));
     getUserByName({ variables: { name: value } });
   };
+
+  useEffect(() => {
+    if (getLoginUserName()) {
+      navigate('/');
+    }
+  }, [navigate]);
 
   return (
     <>
