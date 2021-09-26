@@ -19,8 +19,6 @@ const SignupPage: FC = () => {
 
   const handleSignup = () => {
     const toastSignupId = toast.loading('Loading...');
-    const signupNotify = () => toastSignupId;
-    signupNotify();
     createUser({ variables: { name: value } })
       .then((res) => {
         setLoginUserName(res.data?.createUser.user.name as string);

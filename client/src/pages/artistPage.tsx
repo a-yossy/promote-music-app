@@ -26,8 +26,6 @@ const ArtistPage: FC = () => {
 
   const handleCreateArtist = () => {
     const toastArtistId = toast.loading('Loading...');
-    const artistNotify = () => toastArtistId;
-    artistNotify();
     createArtist({ variables: { name: value } })
       .then((_) => {
         refetch()
