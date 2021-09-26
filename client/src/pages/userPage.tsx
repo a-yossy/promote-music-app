@@ -1,20 +1,27 @@
 import { FC, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { ApolloError, useQuery } from '@apollo/client';
 import { getUserByNameQuery, userByNameInput, User } from 'lib/user';
 import { Artist } from 'lib/artist';
 import ArtistsCard from 'components/ArtistsCard';
 import { Typography, Grid } from '@mui/material';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router';
 
 const UserPage: FC = () => {
   const params = useParams();
   const paramsUserName = params.name;
-  const { loading, error, data } = useQuery<
-    { userByName: User },
-    userByNameInput
-  >(getUserByNameQuery, {
-    variables: { name: paramsUserName || '' },
-  });
+  const navigate = useNavigate();
+  const { loading, data } = useQuery<{ userByName: User }, userByNameInput>(
+    getUserByNameQuery,
+    {
+      variables: { name: paramsUserName || '' },
+      onError: (e: ApolloError) => {
+        toast.error(e.message);
+        navigate('/');
+      },
+    },
+  );
   const [userName, setUserName] = useState<string>('');
   const [artists, setArtists] = useState<Artist[]>([]);
 
@@ -31,7 +38,6 @@ const UserPage: FC = () => {
         Loading...
       </Typography>
     );
-  if (error) return <>Error: {error.message}</>;
 
   return (
     <>
