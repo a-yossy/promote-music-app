@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
-import { ApolloError, useApolloClient } from '@apollo/client';
-import { getUserByNameQuery, User } from 'lib/user';
+import { ApolloError, useLazyQuery } from '@apollo/client';
+import { getUserByNameQuery, User, userByNameInput } from 'lib/user';
 import { useNavigate } from 'react-router';
 import setLoginUserName from 'lib/setLoginUserName';
 import Button from '@mui/material/Button';
@@ -9,8 +9,27 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const LoginPage: FC = () => {
   const navigate = useNavigate();
-  const client = useApolloClient();
+  const [toasterError, setToasterError] = useState<string>('');
   const [value, setValue] = useState<string>('');
+  const [getUserByName] = useLazyQuery<{ userByName: User }, userByNameInput>(
+    getUserByNameQuery,
+    {
+      onCompleted: (data) => {
+        if (data) {
+          setLoginUserName(data.userByName.name);
+          toast.success('Login Is Successful', {
+            id: toasterError,
+          });
+          navigate('/');
+        }
+      },
+      onError: (e: ApolloError) => {
+        toast.error(`${e.message}`, {
+          id: toasterError,
+        });
+      },
+    },
+  );
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -18,31 +37,13 @@ const LoginPage: FC = () => {
 
   const handleLogin = () => {
     const toastSignupId = toast.loading('Loading...');
-    const signupNotify = () => toastSignupId;
-    signupNotify();
-    client
-      .query({ query: getUserByNameQuery, variables: { name: value } })
-
-      .then((res) => {
-        const data = res.data as { userByName: User };
-        setLoginUserName(data.userByName.name);
-        toast.success('Login Is Successful', {
-          id: toastSignupId,
-        });
-        navigate('/');
-      })
-      .catch((e: ApolloError) => {
-        toast.error(`${e.message}`, {
-          id: toastSignupId,
-        });
-      });
-    setValue('');
+    setToasterError(toastSignupId);
+    getUserByName({ variables: { name: value } });
   };
 
   return (
     <>
       <Toaster />
-
       <Input
         value={value}
         onChange={handleChange}
