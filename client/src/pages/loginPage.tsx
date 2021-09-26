@@ -9,7 +9,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const LoginPage: FC = () => {
   const navigate = useNavigate();
-  const [toasterError, setToasterError] = useState<string>('');
+  const [toastLoginId, setToastLoginId] = useState<string>('');
   const [value, setValue] = useState<string>('');
   const [getUserByName] = useLazyQuery<{ userByName: User }, userByNameInput>(
     getUserByNameQuery,
@@ -18,14 +18,14 @@ const LoginPage: FC = () => {
         if (data) {
           setLoginUserName(data.userByName.name);
           toast.success('Login Is Successful', {
-            id: toasterError,
+            id: toastLoginId,
           });
           navigate('/');
         }
       },
       onError: (e: ApolloError) => {
         toast.error(`${e.message}`, {
-          id: toasterError,
+          id: toastLoginId,
         });
       },
     },
@@ -36,8 +36,7 @@ const LoginPage: FC = () => {
   };
 
   const handleLogin = () => {
-    const toastSignupId = toast.loading('Loading...');
-    setToasterError(toastSignupId);
+    setToastLoginId(toast.loading('Loading...'));
     getUserByName({ variables: { name: value } });
   };
 
