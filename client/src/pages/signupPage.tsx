@@ -3,38 +3,42 @@ import { useMutation } from '@apollo/client';
 import { createUserMutation, UserData, userByNameInput } from 'lib/user';
 import { useNavigate } from 'react-router';
 import setLoginUserName from 'lib/setLoginUserName';
-import Button from '@mui/material/Button';
-import Input from '@mui/material/Input';
+import { Button, Input } from '@mui/material';
+import toast, { Toaster } from 'react-hot-toast';
 
 const SignupPage: FC = () => {
   const navigate = useNavigate();
-  const [createUser, { loading, error }] = useMutation<
-    { createUser: UserData },
-    userByNameInput
-  >(createUserMutation);
+  const [createUser] = useMutation<{ createUser: UserData }, userByNameInput>(
+    createUserMutation,
+  );
   const [value, setValue] = useState<string>('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
 
-  /* eslint no-console: ["error", { allow: ["error"] }] */
   const handleSignup = () => {
+    const toastSignupId = toast.loading('Loading...');
     createUser({ variables: { name: value } })
       .then((res) => {
         setLoginUserName(res.data?.createUser.user.name as string);
+        toast.success('User Created', {
+          id: toastSignupId,
+        });
         navigate('/');
       })
-      .catch((e) => {
-        console.error(e);
-      });
-  };
 
-  if (loading) return <>Submitting</>;
-  if (error) return <>Error: {error.message}</>;
+      .catch((e: Error) => {
+        toast.error(`${e.message}`, {
+          id: toastSignupId,
+        });
+      });
+    setValue('');
+  };
 
   return (
     <>
+      <Toaster />
       <Input
         value={value}
         onChange={handleChange}

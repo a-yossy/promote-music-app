@@ -8,17 +8,15 @@ import {
   createArtistInput,
   createArtistMutation,
 } from 'lib/artist';
-import Button from '@mui/material/Button';
-import Input from '@mui/material/Input';
-import Grid from '@mui/material/Grid';
+import { Typography, Button, Input, Grid } from '@mui/material';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ArtistPage: FC = () => {
-  const { loading, error, data, refetch } =
-    useQuery<ArtistsData>(getArtistsQuery);
-  const [createArtist, { error: mutationError, loading: mutationLoading }] =
-    useMutation<{ createArtist: Artist }, createArtistInput>(
-      createArtistMutation,
-    );
+  const { loading, data, refetch } = useQuery<ArtistsData>(getArtistsQuery);
+  const [createArtist] = useMutation<
+    { createArtist: Artist },
+    createArtistInput
+  >(createArtistMutation);
   const [artists, setArtists] = useState<Artist[]>([]);
   const [value, setValue] = useState<string>('');
 
@@ -26,20 +24,27 @@ const ArtistPage: FC = () => {
     setValue(event.target.value);
   };
 
-  /* eslint no-console: ["error", { allow: ["error"] }] */
   const handleCreateArtist = () => {
+    const toastArtistId = toast.loading('Loading...');
     createArtist({ variables: { name: value } })
       .then((_) => {
         refetch()
           .then((res) => {
             setArtists(res.data.artists);
+            toast.success('Artist Created', {
+              id: toastArtistId,
+            });
           })
-          .catch((e) => {
-            console.error(e);
+          .catch((e: Error) => {
+            toast.error(`${e.message}`, {
+              id: toastArtistId,
+            });
           });
       })
-      .catch((e) => {
-        console.error(e);
+      .catch((e: Error) => {
+        toast.error(`${e.message}`, {
+          id: toastArtistId,
+        });
       });
     setValue('');
   };
@@ -50,12 +55,16 @@ const ArtistPage: FC = () => {
     }
   }, [data]);
 
-  if (loading || mutationLoading) return <>Loading</>;
-  if (error) return <>Error: {error.message}</>;
-  if (mutationError) return <>Error: {mutationError.message}</>;
+  if (loading)
+    return (
+      <Typography variant="h5" sx={{ ml: 3, mt: 12, mb: 2 }}>
+        Loading...
+      </Typography>
+    );
 
   return (
     <>
+      <Toaster />
       <Input
         value={value}
         onChange={handleChange}

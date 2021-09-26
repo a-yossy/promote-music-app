@@ -3,6 +3,8 @@ import { getUsersQuery, User, UsersData } from 'lib/user';
 import { useQuery } from '@apollo/client';
 import Users from 'components/Users';
 import Grid from '@mui/material/Grid';
+import { Toaster } from 'react-hot-toast';
+import { Typography } from '@mui/material';
 
 const TopPage: FC = () => {
   const { loading, error, refetch } = useQuery<UsersData>(getUsersQuery);
@@ -19,13 +21,21 @@ const TopPage: FC = () => {
       });
   }, [refetch]);
 
-  if (loading) return <>Loading</>;
+  if (loading)
+    return (
+      <Typography variant="h5" sx={{ ml: 3, mt: 4, mb: 2 }}>
+        Loading...
+      </Typography>
+    );
   if (error) return <>Error: {error.message}</>;
 
   return (
-    <Grid container justifyContent="center" sx={{ mt: 2 }}>
-      <Users users={users} />
-    </Grid>
+    <>
+      <Toaster />
+      <Grid container justifyContent="center" sx={{ mt: 2 }}>
+        <Users users={users} />
+      </Grid>
+    </>
   );
 };
 
