@@ -39,6 +39,7 @@ const LoginPage: FC = () => {
   const handleLogin = () => {
     setToastLoginId(toast.loading('Loading...'));
     getUserByName({ variables: { name: value } });
+    setValue('');
   };
 
   useEffect(() => {
