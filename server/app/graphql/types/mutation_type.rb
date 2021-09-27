@@ -1,5 +1,6 @@
 module Types
   class MutationType < Types::BaseObject
+    field :create_user_artist_relationship, mutation: Mutations::CreateUserArtistRelationship
     field :create_artist, mutation: Mutations::CreateArtist
     field :create_user, mutation: Mutations::CreateUser
     # TODO: remove me
