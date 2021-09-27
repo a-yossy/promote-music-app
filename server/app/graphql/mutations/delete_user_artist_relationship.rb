@@ -18,8 +18,7 @@ module Mutations
     def resolve(user_name:, artist_name:)
       user = User.find_by(name: user_name)
       artist = Artist.find_by(name: artist_name)
-      unfollow = UserArtist.find_by(user: user, artist: artist)
-      if unfollow
+      if unfollow = UserArtist.find_by(user: user, artist: artist)
         unfollow.destroy
       else
         raise GraphQL::ExecutionError, "Not following"
