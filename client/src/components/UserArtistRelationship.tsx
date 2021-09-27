@@ -45,9 +45,17 @@ const UserArtistRelationship: FC<UserArtistRelationshipProp> = ({
     );
 
   return (
-    <Button variant="outlined" sx={{ ml: 6 }}>
-      {loginUserArtists?.has(artist) ? 'フォロー中' : 'フォローする'}
-    </Button>
+    <>
+      {loginUserArtists?.has(artist) ? (
+        <Button variant="outlined" sx={{ ml: 6 }}>
+          フォロー中
+        </Button>
+      ) : (
+        <Button variant="contained" sx={{ ml: 6 }}>
+          フォローする
+        </Button>
+      )}
+    </>
   );
 };
 
