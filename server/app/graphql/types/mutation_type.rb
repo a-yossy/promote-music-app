@@ -1,5 +1,6 @@
 module Types
   class MutationType < Types::BaseObject
+    field :delete_user_artist_relationship, mutation: Mutations::DeleteUserArtistRelationship
     field :create_user_artist_relationship, mutation: Mutations::CreateUserArtistRelationship
     field :create_artist, mutation: Mutations::CreateArtist
     field :create_user, mutation: Mutations::CreateUser
