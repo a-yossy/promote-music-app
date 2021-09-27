@@ -22,7 +22,6 @@ module Mutations
       if !follow.save
         raise GraphQL::ExecutionError, follow.errors.full_messages.join(", ")
       end
-
     end
   end
 end
