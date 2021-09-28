@@ -2,13 +2,13 @@ import { FC } from 'react';
 import { Artist } from 'lib/artist';
 import { Button } from '@mui/material';
 
-type UserArtistRelationshipProp = {
+type FollowButtonProps = {
   currentUserArtists: Set<Artist> | undefined;
   artist: Artist;
   loading: boolean;
 };
 
-const UserArtistRelationship: FC<UserArtistRelationshipProp> = ({
+const FollowButton: FC<FollowButtonProps> = ({
   currentUserArtists,
   artist,
   loading,
@@ -35,4 +35,4 @@ const UserArtistRelationship: FC<UserArtistRelationshipProp> = ({
   );
 };
 
-export default UserArtistRelationship;
+export default FollowButton;
