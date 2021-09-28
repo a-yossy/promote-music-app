@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Artist } from 'lib/artist';
 import { Card, CardContent, Typography, Grid } from '@mui/material';
 import getLoginUserName from 'lib/getLoginUserName';
-import UserArtistRelationship from 'components/UserArtistRelationship';
+import UserArtistRelationship from 'components/FollowButton';
 
 type ArtistListElementProps = {
   artist: Artist;
