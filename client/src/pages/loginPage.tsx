@@ -1,6 +1,6 @@
 import { FC, useState, useEffect } from 'react';
 import { ApolloError, useLazyQuery } from '@apollo/client';
-import { getUserByNameQuery, User, userByNameInput } from 'lib/user';
+import { getUserByNameQuery, User, UserByNameInput } from 'lib/user';
 import { useNavigate } from 'react-router';
 import setLoginUserName from 'lib/setLoginUserName';
 import Button from '@mui/material/Button';
@@ -12,7 +12,7 @@ const LoginPage: FC = () => {
   const navigate = useNavigate();
   const [toastLoginId, setToastLoginId] = useState<string>('');
   const [value, setValue] = useState<string>('');
-  const [getUserByName] = useLazyQuery<{ userByName: User }, userByNameInput>(
+  const [getUserByName] = useLazyQuery<{ userByName: User }, UserByNameInput>(
     getUserByNameQuery,
     {
       onCompleted: (data) => {
