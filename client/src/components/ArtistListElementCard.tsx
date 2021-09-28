@@ -9,7 +9,7 @@ type ArtistListElementProps = {
 };
 
 const ArtistListElement: FC<ArtistListElementProps> = ({ artist }) => {
-  const loginUserName = getLoginUserName();
+  const currentUserName = getLoginUserName();
 
   return (
     <Grid item xs={6}>
@@ -20,9 +20,9 @@ const ArtistListElement: FC<ArtistListElementProps> = ({ artist }) => {
               <Typography variant="h5">{artist.name}</Typography>
             </Grid>
             <Grid item sm={4}>
-              {loginUserName && (
+              {currentUserName && (
                 <UserArtistRelationship
-                  loginUserName={loginUserName}
+                  currentUserName={currentUserName}
                   artist={artist}
                 />
               )}

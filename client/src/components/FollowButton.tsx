@@ -6,19 +6,19 @@ import toast from 'react-hot-toast';
 import { Button } from '@mui/material';
 
 type UserArtistRelationshipProp = {
-  loginUserName: string;
+  currentUserName: string;
   artist: Artist;
 };
 
 const UserArtistRelationship: FC<UserArtistRelationshipProp> = ({
-  loginUserName,
+  currentUserName,
   artist,
 }) => {
   const [loginUserArtists, setLoginUserArtists] = useState<Set<Artist>>();
   const { loading, data } = useQuery<{ userByName: User }, userByNameInput>(
     getUserByNameQuery,
     {
-      variables: { name: loginUserName },
+      variables: { name: currentUserName },
       onError: (e: ApolloError) => {
         toast.error(e.message);
       },
