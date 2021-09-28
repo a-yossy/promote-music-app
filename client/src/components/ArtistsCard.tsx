@@ -3,11 +3,11 @@ import { Artist } from 'lib/artist';
 import ArtistListElementCard from 'components/ArtistListElementCard';
 import Grid from '@mui/material/Grid';
 
-type ArtistsProps = {
+type ArtistsCardProps = {
   artists: Artist[];
 };
 
-const Artists: FC<ArtistsProps> = ({ artists }) => (
+const ArtistsCard: FC<ArtistsCardProps> = ({ artists }) => (
   <Grid container sx={{ width: 1200 }}>
     {artists.map((artist) => (
       <ArtistListElementCard key={artist.id} artist={artist} />
@@ -15,4 +15,4 @@ const Artists: FC<ArtistsProps> = ({ artists }) => (
   </Grid>
 );
 
-export default Artists;
+export default ArtistsCard;

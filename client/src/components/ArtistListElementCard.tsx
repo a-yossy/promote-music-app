@@ -7,11 +7,11 @@ import { useLazyQuery, ApolloError } from '@apollo/client';
 import { User, UserByNameInput, getUserByNameQuery } from 'lib/user';
 import toast from 'react-hot-toast';
 
-type ArtistListElementProps = {
+type ArtistListElementCardProps = {
   artist: Artist;
 };
 
-const ArtistListElement: FC<ArtistListElementProps> = ({ artist }) => {
+const ArtistListElementCard: FC<ArtistListElementCardProps> = ({ artist }) => {
   const [currentUserName, setCurrentUserName] = useState<string>('');
   const [currentUserArtists, setCurrentUserArtists] = useState<Set<Artist>>();
   const [getUserByName] = useLazyQuery<{ userByName: User }, UserByNameInput>(
@@ -29,7 +29,7 @@ const ArtistListElement: FC<ArtistListElementProps> = ({ artist }) => {
 
   useEffect(() => {
     setCurrentUserName(getLoginUserName());
-  }, []);
+  }, [setCurrentUserName]);
 
   useEffect(() => {
     if (currentUserName) {
@@ -65,4 +65,4 @@ const ArtistListElement: FC<ArtistListElementProps> = ({ artist }) => {
   );
 };
 
-export default ArtistListElement;
+export default ArtistListElementCard;
