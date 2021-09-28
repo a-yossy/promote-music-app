@@ -14,7 +14,7 @@ const UserArtistRelationship: FC<UserArtistRelationshipProp> = ({
   currentUserName,
   artist,
 }) => {
-  const [loginUserArtists, setLoginUserArtists] = useState<Set<Artist>>();
+  const [currentUserArtists, setCurrentUserArtists] = useState<Set<Artist>>();
   const { loading, data } = useQuery<{ userByName: User }, userByNameInput>(
     getUserByNameQuery,
     {
@@ -27,11 +27,11 @@ const UserArtistRelationship: FC<UserArtistRelationshipProp> = ({
 
   useEffect(() => {
     if (data) {
-      setLoginUserArtists(new Set(data.userByName.artists));
+      setCurrentUserArtists(new Set(data.userByName.artists));
     }
   }, [data]);
 
-  if (loading || !loginUserArtists)
+  if (loading || !currentUserArtists)
     return (
       <Button variant="outlined" disabled sx={{ ml: 6 }}>
         Loading...
@@ -40,7 +40,7 @@ const UserArtistRelationship: FC<UserArtistRelationshipProp> = ({
 
   return (
     <>
-      {loginUserArtists?.has(artist) ? (
+      {currentUserArtists?.has(artist) ? (
         <Button variant="outlined" sx={{ ml: 6 }}>
           フォロー中
         </Button>
