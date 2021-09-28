@@ -15,7 +15,7 @@ const UserArtistRelationship: FC<UserArtistRelationshipProp> = ({
 }) => {
   if (loading || !currentUserArtists)
     return (
-      <Button variant="outlined" sx={{ ml: 6 }}>
+      <Button variant="outlined" sx={{ ml: 8 }}>
         Loading...
       </Button>
     );
@@ -23,11 +23,11 @@ const UserArtistRelationship: FC<UserArtistRelationshipProp> = ({
   return (
     <>
       {currentUserArtists?.has(artist) ? (
-        <Button variant="outlined" sx={{ ml: 6 }}>
+        <Button variant="outlined" sx={{ ml: 8 }}>
           フォロー中
         </Button>
       ) : (
-        <Button variant="contained" sx={{ ml: 6 }}>
+        <Button variant="contained" sx={{ ml: 8 }}>
           フォロー
         </Button>
       )}
