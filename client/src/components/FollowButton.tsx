@@ -46,7 +46,7 @@ const UserArtistRelationship: FC<UserArtistRelationshipProp> = ({
         </Button>
       ) : (
         <Button variant="contained" sx={{ ml: 6 }}>
-          フォローする
+          フォロー
         </Button>
       )}
     </>
