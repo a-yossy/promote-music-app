@@ -1,6 +1,6 @@
 import { FC, useState, useEffect } from 'react';
 import { Artist } from 'lib/artist';
-import { useLazyQuery, ApolloError } from '@apollo/client';
+import { useQuery, ApolloError } from '@apollo/client';
 import { User, userByNameInput, getUserByNameQuery } from 'lib/user';
 import toast from 'react-hot-toast';
 import { Button } from '@mui/material';
@@ -15,21 +15,15 @@ const UserArtistRelationship: FC<UserArtistRelationshipProp> = ({
   artist,
 }) => {
   const [loginUserArtists, setLoginUserArtists] = useState<Set<Artist>>();
-  const [getUserByName, { loading, data }] = useLazyQuery<
-    { userByName: User },
-    userByNameInput
-  >(getUserByNameQuery, {
-    variables: { name: loginUserName },
-    onError: (e: ApolloError) => {
-      toast.error(e.message);
+  const { loading, data } = useQuery<{ userByName: User }, userByNameInput>(
+    getUserByNameQuery,
+    {
+      variables: { name: loginUserName },
+      onError: (e: ApolloError) => {
+        toast.error(e.message);
+      },
     },
-  });
-
-  useEffect(() => {
-    if (loginUserName) {
-      getUserByName();
-    }
-  }, [loginUserName, getUserByName]);
+  );
 
   useEffect(() => {
     if (data) {
@@ -37,7 +31,7 @@ const UserArtistRelationship: FC<UserArtistRelationshipProp> = ({
     }
   }, [data]);
 
-  if (loading || !data)
+  if (loading || !loginUserArtists)
     return (
       <Button variant="outlined" disabled sx={{ ml: 6 }}>
         Loading...
