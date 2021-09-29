@@ -29,6 +29,7 @@ const ArtistListElementCard: FC<ArtistListElementCardProps> = ({
                 artist={artist}
                 currentUserArtists={currentUserArtists}
                 loading={loading}
+                currentUserName={currentUserName}
               />
             )}
           </Grid>
