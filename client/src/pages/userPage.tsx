@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { ApolloError, useQuery } from '@apollo/client';
@@ -5,14 +6,14 @@ import { getUserByNameQuery, UserByNameInput, User } from 'lib/user';
 import { Artist } from 'lib/artist';
 import ArtistsCard from 'components/ArtistsCard';
 import { Typography, Grid } from '@mui/material';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 
 const UserPage: FC = () => {
   const params = useParams();
   const paramsUserName = params.name;
   const navigate = useNavigate();
-  const { loading, data } = useQuery<{ userByName: User }, UserByNameInput>(
+  const { loading, refetch } = useQuery<{ userByName: User }, UserByNameInput>(
     getUserByNameQuery,
     {
       variables: { name: paramsUserName || '' },
@@ -26,11 +27,15 @@ const UserPage: FC = () => {
   const [artists, setArtists] = useState<Artist[]>([]);
 
   useEffect(() => {
-    if (data) {
-      setUserName(data.userByName.name);
-      setArtists(data.userByName.artists);
-    }
-  }, [data]);
+    refetch()
+      .then((res) => {
+        setUserName(res.data.userByName.name);
+        setArtists(res.data.userByName.artists);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, [refetch]);
 
   if (loading)
     return (
@@ -41,6 +46,7 @@ const UserPage: FC = () => {
 
   return (
     <>
+      <Toaster />
       <Typography variant="h5" color="#9e9e9e" sx={{ ml: 3, mt: 4, mb: 2 }}>
         {userName}
       </Typography>
