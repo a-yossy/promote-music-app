@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Artist } from 'lib/artist';
 import { Card, CardContent, Typography, Grid } from '@mui/material';
-import UserArtistRelationship from 'components/FollowButton';
+import FollowButton from 'components/FollowButton';
 
 type ArtistListElementCardProps = {
   artist: Artist;
@@ -25,7 +25,7 @@ const ArtistListElementCard: FC<ArtistListElementCardProps> = ({
           </Grid>
           <Grid item sm={4}>
             {currentUserName && (
-              <UserArtistRelationship
+              <FollowButton
                 artist={artist}
                 currentUserArtists={currentUserArtists}
                 loading={loading}
