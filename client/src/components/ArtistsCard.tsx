@@ -13,7 +13,9 @@ type ArtistsCardProps = {
 
 const ArtistsCard: FC<ArtistsCardProps> = ({ artists }) => {
   const [currentUserName, setCurrentUserName] = useState<string>('');
-  const [currentUserArtists, setCurrentUserArtists] = useState<Set<Artist>>();
+  const [currentUserArtists, setCurrentUserArtists] = useState<Set<Artist>>(
+    new Set(),
+  );
   const [getUserByName, { loading }] = useLazyQuery<
     { userByName: User },
     UserByNameInput
