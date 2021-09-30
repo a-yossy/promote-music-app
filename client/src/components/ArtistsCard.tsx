@@ -20,6 +20,7 @@ const ArtistsCard: FC<ArtistsCardProps> = ({ artists }) => {
     },
   );
 
+  /* eslint no-console: ["error", { allow: ["error"] }] */
   useEffect(() => {
     setCurrentUserName(getLoginUserName());
   }, [setCurrentUserName]);

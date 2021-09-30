@@ -26,6 +26,7 @@ const UserPage: FC = () => {
   const [userName, setUserName] = useState<string>('');
   const [artists, setArtists] = useState<Artist[]>([]);
 
+  /* eslint no-console: ["error", { allow: ["error"] }] */
   useEffect(() => {
     refetch()
       .then((res) => {
