@@ -15,7 +15,7 @@ export type UserData = {
   user: User;
 };
 
-export type userByNameInput = {
+export type UserByNameInput = {
   name: string;
 };
 

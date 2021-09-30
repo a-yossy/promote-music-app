@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { ApolloError, useQuery } from '@apollo/client';
-import { getUserByNameQuery, userByNameInput, User } from 'lib/user';
+import { getUserByNameQuery, UserByNameInput, User } from 'lib/user';
 import { Artist } from 'lib/artist';
 import ArtistsCard from 'components/ArtistsCard';
 import { Typography, Grid } from '@mui/material';
@@ -12,7 +12,7 @@ const UserPage: FC = () => {
   const params = useParams();
   const paramsUserName = params.name;
   const navigate = useNavigate();
-  const { loading, data } = useQuery<{ userByName: User }, userByNameInput>(
+  const { loading, data } = useQuery<{ userByName: User }, UserByNameInput>(
     getUserByNameQuery,
     {
       variables: { name: paramsUserName || '' },
