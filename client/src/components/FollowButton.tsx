@@ -13,8 +13,8 @@ import { useMutation } from '@apollo/client';
 import toast from 'react-hot-toast';
 
 type FollowButtonProps = {
-  currentUserArtists: Set<Artist> | undefined;
   currentUserName: string;
+  currentUserArtists: Set<Artist>;
   artist: Artist;
   loading: boolean;
 };
