@@ -5,7 +5,7 @@ import FollowButton from 'components/FollowButton';
 
 type ArtistListElementCardProps = {
   artist: Artist;
-  currentUserArtists: Set<Artist> | undefined;
+  currentUserArtists: Set<Artist>;
   loading: boolean;
   currentUserName: string;
 };

@@ -3,7 +3,7 @@ import { Artist } from 'lib/artist';
 import { Button } from '@mui/material';
 
 type FollowButtonProps = {
-  currentUserArtists: Set<Artist> | undefined;
+  currentUserArtists: Set<Artist>;
   artist: Artist;
   loading: boolean;
 };
