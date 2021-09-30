@@ -3,9 +3,8 @@ import { Artist } from 'lib/artist';
 import ArtistListElementCard from 'components/ArtistListElementCard';
 import Grid from '@mui/material/Grid';
 import getLoginUserName from 'lib/getLoginUserName';
-import { useLazyQuery, ApolloError } from '@apollo/client';
+import { ApolloError, useQuery } from '@apollo/client';
 import { User, UserByNameInput, getUserByNameQuery } from 'lib/user';
-import toast from 'react-hot-toast';
 
 type ArtistsCardProps = {
   artists: Artist[];
@@ -14,18 +13,12 @@ type ArtistsCardProps = {
 const ArtistsCard: FC<ArtistsCardProps> = ({ artists }) => {
   const [currentUserName, setCurrentUserName] = useState<string>('');
   const [currentUserArtists, setCurrentUserArtists] = useState<Set<Artist>>();
-  const [getUserByName, { loading }] = useLazyQuery<
-    { userByName: User },
-    UserByNameInput
-  >(getUserByNameQuery, {
-    variables: { name: currentUserName },
-    onCompleted: (res) => {
-      setCurrentUserArtists(new Set(res.userByName.artists));
+  const { loading, refetch } = useQuery<{ userByName: User }, UserByNameInput>(
+    getUserByNameQuery,
+    {
+      variables: { name: currentUserName },
     },
-    onError: (e: ApolloError) => {
-      toast.error(e.message);
-    },
-  });
+  );
 
   useEffect(() => {
     setCurrentUserName(getLoginUserName());
@@ -33,9 +26,15 @@ const ArtistsCard: FC<ArtistsCardProps> = ({ artists }) => {
 
   useEffect(() => {
     if (currentUserName) {
-      getUserByName();
+      refetch()
+        .then((res) => {
+          setCurrentUserArtists(new Set(res.data.userByName.artists));
+        })
+        .catch((e: ApolloError) => {
+          console.error(e);
+        });
     }
-  }, [currentUserName, getUserByName]);
+  }, [refetch, currentUserName]);
 
   return (
     <Grid container sx={{ width: 1200 }}>
