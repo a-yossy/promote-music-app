@@ -36,7 +36,7 @@ const UserPage: FC = () => {
       .catch((e) => {
         console.error(e);
       });
-  }, [refetch]);
+  }, [refetch, paramsUserName]);
 
   if (loading)
     return (
