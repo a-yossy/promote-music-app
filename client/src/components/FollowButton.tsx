@@ -1,4 +1,3 @@
-/* eslint-disable object-shorthand */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, useState, useEffect } from 'react';
 import { Artist } from 'lib/artist';
@@ -29,7 +28,7 @@ const FollowButton: FC<FollowButtonProps> = ({
 
   const handleFollow = (userName: string, artistName: string) => {
     createUserArtistRelationship({
-      variables: { userName: userName, artistName: artistName },
+      variables: { userName, artistName },
     })
       .then((_) => {
         setIsFollow(true);
