@@ -4,11 +4,7 @@ import { FC, useState, useEffect } from 'react';
 import { Artist } from 'lib/artist';
 import { Button } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-import {
-  CreateUserArtistRelationshipInput,
-  createUserArtistRelationshipMutation,
-  User,
-} from 'lib/user';
+import { FollowArtistInput, followArtistMutation, User } from 'lib/user';
 import { useMutation } from '@apollo/client';
 import toast from 'react-hot-toast';
 
@@ -27,10 +23,9 @@ const FollowButton: FC<FollowButtonProps> = ({
 }) => {
   const [isFollow, setIsFollow] = useState<boolean>();
   const [createUserArtistRelationship, { loading: followLoading }] =
-    useMutation<
-      { createUserArtistRelationship: User },
-      CreateUserArtistRelationshipInput
-    >(createUserArtistRelationshipMutation);
+    useMutation<{ createUserArtistRelationship: User }, FollowArtistInput>(
+      followArtistMutation,
+    );
 
   const handleFollow = (userName: string, artistName: string) => {
     createUserArtistRelationship({

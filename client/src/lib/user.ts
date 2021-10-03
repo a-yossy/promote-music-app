@@ -19,7 +19,7 @@ export type UserByNameInput = {
   name: string;
 };
 
-export type CreateUserArtistRelationshipInput = {
+export type FollowArtistInput = {
   userName: string;
   artistName: string;
 };
@@ -61,7 +61,7 @@ export const createUserMutation = gql`
   }
 `;
 
-export const createUserArtistRelationshipMutation = gql`
+export const followArtistMutation = gql`
   mutation CreateUserArtistRelationship(
     $userName: String!
     $artistName: String!
