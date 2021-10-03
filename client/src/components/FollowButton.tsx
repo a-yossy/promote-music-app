@@ -41,7 +41,7 @@ const FollowButton: FC<FollowButtonProps> = ({
     if (currentUserArtists?.has(artist)) setIsFollow(true);
   }, [artist, currentUserArtists]);
 
-  if (isFollow === undefined || loading)
+  if (loading)
     return (
       <Button variant="outlined" sx={{ ml: 8 }}>
         Loading...
