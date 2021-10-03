@@ -38,11 +38,8 @@ const FollowButton: FC<FollowButtonProps> = ({
   };
 
   useEffect(() => {
-    if (artist && currentUserArtists && !loading) {
-      if (currentUserArtists?.has(artist)) setIsFollow(true);
-      else setIsFollow(false);
-    }
-  }, [artist, currentUserArtists, loading]);
+    if (currentUserArtists?.has(artist)) setIsFollow(true);
+  }, [artist, currentUserArtists]);
 
   if (isFollow === undefined || loading)
     return (
