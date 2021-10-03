@@ -19,7 +19,7 @@ const FollowButton: FC<FollowButtonProps> = ({
   artist,
   loading,
 }) => {
-  const [isFollow, setIsFollow] = useState<boolean>();
+  const [isFollow, setIsFollow] = useState<boolean>(false);
   const [createUserArtistRelationship, { loading: followLoading }] =
     useMutation<{ createUserArtistRelationship: User }, FollowArtistInput>(
       followArtistMutation,
