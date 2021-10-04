@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid';
 import getLoginUserName from 'lib/getLoginUserName';
 import { ApolloError, useQuery } from '@apollo/client';
 import { User, UserByNameInput, getUserByNameQuery } from 'lib/user';
+import toast from 'react-hot-toast';
 
 type ArtistsCardProps = {
   artists: Artist[];
@@ -23,7 +24,6 @@ const ArtistsCard: FC<ArtistsCardProps> = ({ artists }) => {
     },
   );
 
-  /* eslint no-console: ["error", { allow: ["error"] }] */
   useEffect(() => {
     setCurrentUserName(getLoginUserName());
   }, [setCurrentUserName]);
@@ -36,7 +36,7 @@ const ArtistsCard: FC<ArtistsCardProps> = ({ artists }) => {
           setLoading(false);
         })
         .catch((e: ApolloError) => {
-          console.error(e);
+          toast.error(e.message);
         });
     }
   }, [refetch, currentUserName]);
