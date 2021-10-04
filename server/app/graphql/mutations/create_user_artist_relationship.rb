@@ -12,7 +12,7 @@ module Mutations
     # end
     field :user, Types::UserType, null: true
 
-    argument :user_name, ID, required: true
+    argument :user_name, String, required: true
     argument :artist_name, String, required: true
 
     def resolve(user_name:, artist_name:)

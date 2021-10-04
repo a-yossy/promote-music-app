@@ -19,6 +19,11 @@ export type UserByNameInput = {
   name: string;
 };
 
+export type FollowArtistInput = {
+  userName: string;
+  artistName: string;
+};
+
 export const getUsersQuery = gql`
   query Users {
     users {
@@ -48,6 +53,22 @@ export const getUserByNameQuery = gql`
 export const createUserMutation = gql`
   mutation CreateUser($name: String!) {
     createUser(input: { name: $name }) {
+      user {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const followArtistMutation = gql`
+  mutation CreateUserArtistRelationship(
+    $userName: String!
+    $artistName: String!
+  ) {
+    createUserArtistRelationship(
+      input: { userName: $userName, artistName: $artistName }
+    ) {
       user {
         id
         name
