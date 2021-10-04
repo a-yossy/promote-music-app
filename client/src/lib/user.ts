@@ -76,3 +76,19 @@ export const followArtistMutation = gql`
     }
   }
 `;
+
+export const unfollowArtistMutation = gql`
+  mutation DeleteUserArtistRelationship(
+    $userName: String!
+    $artistName: String!
+  ) {
+    deleteUserArtistRelationship(
+      input: { userName: $userName, artistName: $artistName }
+    ) {
+      user {
+        id
+        name
+      }
+    }
+  }
+`;
