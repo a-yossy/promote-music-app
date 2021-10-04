@@ -25,17 +25,17 @@ const FollowButton: FC<FollowButtonProps> = ({
   loading,
 }) => {
   const [isFollow, setIsFollow] = useState<boolean>(false);
-  const [createUserArtistRelationship, { loading: followLoading }] =
-    useMutation<{ createUserArtistRelationship: User }, FollowArtistInput>(
-      followArtistMutation,
-    );
+  const [follow, { loading: followLoading }] = useMutation<
+    { follow: User },
+    FollowArtistInput
+  >(followArtistMutation);
   const [unfollow, { loading: unfollowLoading }] = useMutation<
     { unfollow: User },
     FollowArtistInput
   >(unfollowArtistMutation);
 
   const handleFollow = (userName: string, artistName: string) => {
-    createUserArtistRelationship({
+    follow({
       variables: { userName, artistName },
     })
       .then((_) => {
