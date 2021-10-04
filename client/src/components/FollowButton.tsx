@@ -2,7 +2,12 @@ import { FC, useState, useEffect } from 'react';
 import { Artist } from 'lib/artist';
 import { Button } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { FollowArtistInput, followArtistMutation, User } from 'lib/user';
+import {
+  FollowArtistInput,
+  followArtistMutation,
+  User,
+  unfollowArtistMutation,
+} from 'lib/user';
 import { useMutation } from '@apollo/client';
 import toast from 'react-hot-toast';
 
@@ -20,13 +25,18 @@ const FollowButton: FC<FollowButtonProps> = ({
   loading,
 }) => {
   const [isFollow, setIsFollow] = useState<boolean>(false);
-  const [createUserArtistRelationship, { loading: followLoading }] =
-    useMutation<{ createUserArtistRelationship: User }, FollowArtistInput>(
-      followArtistMutation,
-    );
+  const [follow, { loading: followLoading }] = useMutation<
+    { follow: User },
+    FollowArtistInput
+  >(followArtistMutation);
+  const [unfollow, { loading: unfollowLoading }] = useMutation<
+    { unfollow: User },
+    FollowArtistInput
+  >(unfollowArtistMutation);
+  const [hovered, setHovered] = useState<boolean>(false);
 
   const handleFollow = (userName: string, artistName: string) => {
-    createUserArtistRelationship({
+    follow({
       variables: { userName, artistName },
     })
       .then((_) => {
@@ -37,13 +47,25 @@ const FollowButton: FC<FollowButtonProps> = ({
       });
   };
 
+  const handleUnfollow = (userName: string, artistName: string) => {
+    unfollow({
+      variables: { userName, artistName },
+    })
+      .then((_) => {
+        setIsFollow(false);
+      })
+      .catch((e: Error) => {
+        toast.error(e.message);
+      });
+  };
+
   useEffect(() => {
     if (currentUserArtists?.has(artist)) setIsFollow(true);
   }, [artist, currentUserArtists]);
 
   if (loading)
     return (
-      <Button variant="outlined" sx={{ ml: 8 }}>
+      <Button variant="outlined" sx={{ ml: 6 }}>
         Loading...
       </Button>
     );
@@ -51,17 +73,25 @@ const FollowButton: FC<FollowButtonProps> = ({
   return (
     <>
       {isFollow ? (
-        <Button variant="outlined" sx={{ ml: 8 }}>
-          フォロー中
-        </Button>
+        <LoadingButton
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          onClick={() => handleUnfollow(currentUserName, artist.name)}
+          variant="outlined"
+          sx={{ ml: 6 }}
+          loading={unfollowLoading}
+          color={hovered ? 'secondary' : 'primary'}
+        >
+          {hovered ? 'フォロー解除' : 'フォロー中'}
+        </LoadingButton>
       ) : (
         <LoadingButton
           onClick={() => handleFollow(currentUserName, artist.name)}
           variant="contained"
-          sx={{ ml: 8 }}
+          sx={{ ml: 6 }}
           loading={followLoading}
         >
-          フォロー
+          フォローする
         </LoadingButton>
       )}
     </>
