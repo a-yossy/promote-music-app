@@ -90,7 +90,7 @@ const FollowButton: FC<FollowButtonProps> = ({
           sx={{ ml: 6 }}
           loading={followLoading}
         >
-          フォロー
+          フォローする
         </LoadingButton>
       )}
     </>
