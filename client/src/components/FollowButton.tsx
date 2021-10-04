@@ -65,7 +65,7 @@ const FollowButton: FC<FollowButtonProps> = ({
 
   if (loading)
     return (
-      <Button variant="outlined" sx={{ ml: 8 }}>
+      <Button variant="outlined" sx={{ ml: 6 }}>
         Loading...
       </Button>
     );
@@ -78,7 +78,7 @@ const FollowButton: FC<FollowButtonProps> = ({
           onMouseLeave={() => setHovered(false)}
           onClick={() => handleUnfollow(currentUserName, artist.name)}
           variant="outlined"
-          sx={{ ml: 8 }}
+          sx={{ ml: 6 }}
           loading={unfollowLoading}
         >
           {hovered ? 'フォロー解除' : 'フォロー中'}
@@ -87,7 +87,7 @@ const FollowButton: FC<FollowButtonProps> = ({
         <LoadingButton
           onClick={() => handleFollow(currentUserName, artist.name)}
           variant="contained"
-          sx={{ ml: 8 }}
+          sx={{ ml: 6 }}
           loading={followLoading}
         >
           フォロー
