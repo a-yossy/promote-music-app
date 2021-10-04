@@ -80,6 +80,7 @@ const FollowButton: FC<FollowButtonProps> = ({
           variant="outlined"
           sx={{ ml: 6 }}
           loading={unfollowLoading}
+          color={hovered ? 'secondary' : 'primary'}
         >
           {hovered ? 'フォロー解除' : 'フォロー中'}
         </LoadingButton>
