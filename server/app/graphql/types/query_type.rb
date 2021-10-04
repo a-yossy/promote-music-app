@@ -8,7 +8,7 @@ module Types
     # They will be entry points for queries on your schema.
     field :users, [Types::UserType], null: false
     def users
-      User.all
+      User.all.includes(:artists)
     end
 
     field :user_by_name, Types::UserType, null: false do
