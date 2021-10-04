@@ -33,6 +33,7 @@ const FollowButton: FC<FollowButtonProps> = ({
     { unfollow: User },
     FollowArtistInput
   >(unfollowArtistMutation);
+  const [hovered, setHovered] = useState<boolean>(false);
 
   const handleFollow = (userName: string, artistName: string) => {
     follow({
@@ -73,12 +74,14 @@ const FollowButton: FC<FollowButtonProps> = ({
     <>
       {isFollow ? (
         <LoadingButton
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
           onClick={() => handleUnfollow(currentUserName, artist.name)}
           variant="outlined"
           sx={{ ml: 8 }}
           loading={unfollowLoading}
         >
-          フォロー中
+          {hovered ? 'フォロー解除' : 'フォロー中'}
         </LoadingButton>
       ) : (
         <LoadingButton
