@@ -1,25 +1,43 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState } from 'react';
 import { getUsersQuery, User, UsersData } from 'lib/user';
-import { useQuery } from '@apollo/client';
+import { useQuery, ApolloError } from '@apollo/client';
 import Users from 'components/Users';
 import Grid from '@mui/material/Grid';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { CircularProgress, Box } from '@mui/material';
+import InfiniteScroll from 'react-infinite-scroller';
 
 const TopPage: FC = () => {
-  const { loading, error, refetch } = useQuery<UsersData>(getUsersQuery);
   const [users, setUsers] = useState<User[]>([]);
+  const [hasMore, setHasMore] = useState(true);
 
-  /* eslint no-console: ["error", { allow: ["error"] }] */
-  useEffect(() => {
-    refetch()
+  const { loading, error, fetchMore, data } = useQuery<UsersData>(
+    getUsersQuery,
+    {
+      variables: {
+        offset: 0,
+        limit: 10,
+      },
+      onCompleted: (res) => {
+        if (res) {
+          setUsers(res.users);
+        }
+      },
+    },
+  );
+
+  const getUsersData = () => {
+    fetchMore({
+      variables: { offset: data?.users.length || 0 },
+    })
       .then((res) => {
-        setUsers(res.data.users);
+        if (res.data.users.length === 0) setHasMore(!hasMore);
+        setUsers((prev) => [...prev, ...res.data.users]);
       })
-      .catch((e) => {
-        console.error(e);
+      .catch((e: ApolloError) => {
+        toast.error(e.message);
       });
-  }, [refetch]);
+  };
 
   if (loading)
     return (
@@ -33,7 +51,17 @@ const TopPage: FC = () => {
     <>
       <Toaster />
       <Grid container justifyContent="center" sx={{ mt: 2 }}>
-        <Users users={users} />
+        <InfiniteScroll
+          loadMore={() => getUsersData()}
+          hasMore={hasMore}
+          loader={
+            <div key={0}>
+              <CircularProgress sx={{ mt: 5, ml: 72 }} />
+            </div>
+          }
+        >
+          <Users users={users} />
+        </InfiniteScroll>
       </Grid>
     </>
   );
