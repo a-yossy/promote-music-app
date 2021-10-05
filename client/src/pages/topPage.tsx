@@ -16,7 +16,7 @@ const TopPage: FC = () => {
     {
       variables: {
         offset: 0,
-        limit: 10,
+        limit: 20,
       },
       onCompleted: (res) => {
         if (res) {
@@ -31,7 +31,7 @@ const TopPage: FC = () => {
       variables: { offset: data?.users.length || 0 },
     })
       .then((res) => {
-        if (res.data.users.length === 0) setHasMore(!hasMore);
+        if (res.data.users.length === 0) setHasMore(false);
         setUsers((prev) => [...prev, ...res.data.users]);
       })
       .catch((e: ApolloError) => {
@@ -59,6 +59,7 @@ const TopPage: FC = () => {
               <CircularProgress sx={{ mt: 5, ml: 72 }} />
             </div>
           }
+          initialLoad={false}
         >
           <Users users={users} />
         </InfiniteScroll>
