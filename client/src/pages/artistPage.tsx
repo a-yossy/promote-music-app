@@ -8,7 +8,7 @@ import {
   createArtistInput,
   createArtistMutation,
 } from 'lib/artist';
-import { Typography, Button, Input, Grid } from '@mui/material';
+import { Button, Input, Grid, CircularProgress, Box } from '@mui/material';
 import toast, { Toaster } from 'react-hot-toast';
 
 const ArtistPage: FC = () => {
@@ -57,9 +57,9 @@ const ArtistPage: FC = () => {
 
   if (loading)
     return (
-      <Typography variant="h5" sx={{ ml: 3, mt: 12, mb: 2 }}>
-        Loading...
-      </Typography>
+      <Box sx={{ ml: 3, mt: 12, mb: 2 }}>
+        <CircularProgress />
+      </Box>
     );
 
   return (

@@ -1,6 +1,6 @@
 import { FC, useState, useEffect } from 'react';
 import { Artist } from 'lib/artist';
-import { Button } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import {
   FollowArtistInput,
@@ -66,7 +66,7 @@ const FollowButton: FC<FollowButtonProps> = ({
   if (loading)
     return (
       <Button variant="outlined" sx={{ ml: 6 }}>
-        Loading...
+        <CircularProgress size={24.5} color="inherit" />
       </Button>
     );
 
