@@ -6,9 +6,12 @@ module Types
 
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
-    field :users, [Types::UserType], null: false
-    def users
-      User.all.includes(:artists)
+    field :users, [Types::UserType], null: false do
+      argument :offset, Int, required: false
+      argument :limit, Int, required: false
+    end
+    def users(offset:, limit:)
+      User.includes(:artists).limit(limit).offset(offset)
     end
 
     field :user_by_name, Types::UserType, null: false do
