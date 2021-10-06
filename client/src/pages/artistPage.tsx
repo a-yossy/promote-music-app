@@ -16,23 +16,24 @@ const ArtistPage: FC = () => {
   const [artists, setArtists] = useState<Artist[]>([]);
   const [value, setValue] = useState<string>('');
   const [hasMore, setHasMore] = useState<boolean>(true);
-  const { loading, data, fetchMore } = useQuery<ArtistsData>(getArtistsQuery, {
-    variables: {
-      offset: 0,
-      limit: 20,
+  const { error, loading, data, fetchMore } = useQuery<ArtistsData>(
+    getArtistsQuery,
+    {
+      variables: {
+        offset: 0,
+        limit: 20,
+      },
+      onCompleted: (res) => {
+        if (res) {
+          setArtists(res.artists);
+        }
+      },
     },
-    onCompleted: (res) => {
-      if (res) {
-        setArtists(res.artists);
-      }
-    },
-  });
+  );
   const [createArtist] = useMutation<
     { createArtist: Artist },
     createArtistInput
   >(createArtistMutation);
-
-  console.log(artists);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -74,6 +75,7 @@ const ArtistPage: FC = () => {
         <CircularProgress />
       </Box>
     );
+  if (error) return <>Error: {error.message}</>;
 
   return (
     <>
