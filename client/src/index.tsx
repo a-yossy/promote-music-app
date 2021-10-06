@@ -12,6 +12,7 @@ const cache = new InMemoryCache({
       fields: {
         users: offsetLimitPagination(),
         artists: offsetLimitPagination(),
+        currentUserArtists: offsetLimitPagination(),
       },
     },
   },
