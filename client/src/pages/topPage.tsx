@@ -52,7 +52,7 @@ const TopPage: FC = () => {
       <Toaster />
       <Grid container justifyContent="center" sx={{ mt: 2 }}>
         <InfiniteScroll
-          loadMore={() => getUsersData()}
+          loadMore={getUsersData}
           hasMore={hasMore}
           loader={
             <div key={0}>
