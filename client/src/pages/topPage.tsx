@@ -9,7 +9,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 
 const TopPage: FC = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
   const { loading, error, fetchMore, data } = useQuery<UsersData>(
     getUsersQuery,
