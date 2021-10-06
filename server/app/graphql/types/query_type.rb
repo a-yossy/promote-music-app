@@ -7,8 +7,8 @@ module Types
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
     field :users, [Types::UserType], null: false do
-      argument :offset, Int, required: false
-      argument :limit, Int, required: false
+      argument :offset, Int, required: true
+      argument :limit, Int, required: true
     end
     def users(offset:, limit:)
       User.includes(:artists).limit(limit).offset(offset)
