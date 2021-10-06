@@ -14,7 +14,7 @@ export type createArtistInput = {
 };
 
 export const getArtistsQuery = gql`
-  query Artists($offset: Int, $limit: Int) {
+  query Artists($offset: Int!, $limit: Int!) {
     artists(offset: $offset, limit: $limit) {
       id
       name

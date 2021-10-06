@@ -25,7 +25,7 @@ export type FollowArtistInput = {
 };
 
 export const getUsersQuery = gql`
-  query Users($offset: Int, $limit: Int) {
+  query Users($offset: Int!, $limit: Int!) {
     users(offset: $offset, limit: $limit) {
       id
       name
