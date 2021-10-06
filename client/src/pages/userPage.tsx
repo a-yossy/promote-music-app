@@ -5,7 +5,7 @@ import { ApolloError, useQuery } from '@apollo/client';
 import { getUserByNameQuery, UserByNameInput, User } from 'lib/user';
 import { Artist } from 'lib/artist';
 import ArtistsCard from 'components/ArtistsCard';
-import { Typography, Grid } from '@mui/material';
+import { Typography, Grid, CircularProgress, Box } from '@mui/material';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 
@@ -40,9 +40,9 @@ const UserPage: FC = () => {
 
   if (loading)
     return (
-      <Typography variant="h5" sx={{ ml: 3, mt: 4, mb: 2 }}>
-        Loading...
-      </Typography>
+      <Box sx={{ ml: 3, mt: 4, mb: 2 }}>
+        <CircularProgress />
+      </Box>
     );
 
   return (
