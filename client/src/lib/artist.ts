@@ -22,6 +22,15 @@ export const getArtistsQuery = gql`
   }
 `;
 
+export const getCurrentUserArtistsQuery = gql`
+  query CurrentUserArtists($userName: String!, $offset: Int!, $limit: Int!) {
+    currentUserArtists(userName: $userName, offset: $offset, limit: $limit) {
+      id
+      name
+    }
+  }
+`;
+
 export const createArtistMutation = gql`
   mutation CreateArtist($name: String!) {
     createArtist(input: { name: $name }) {
