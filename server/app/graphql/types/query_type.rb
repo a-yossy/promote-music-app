@@ -25,9 +25,12 @@ module Types
       end
     end
 
-    field :artists, [Types::ArtistType], null: false
-    def artists
-      Artist.all
+    field :artists, [Types::ArtistType], null: false do
+      argument :offset, Int, required: true
+      argument :limit, Int, required: true
+    end
+    def artists(offset:, limit:)
+      Artist.limit(limit).offset(offset)
     end
 
     # TODO: remove me
