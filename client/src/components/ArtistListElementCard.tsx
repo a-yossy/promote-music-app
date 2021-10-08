@@ -5,14 +5,14 @@ import FollowButton from 'components/FollowButton';
 
 type ArtistListElementCardProps = {
   artist: Artist;
-  currentUserArtists: Set<Artist>;
+  currentUserArtistsName: Set<string>;
   loading: boolean;
   currentUserName: string;
 };
 
 const ArtistListElementCard: FC<ArtistListElementCardProps> = ({
   artist,
-  currentUserArtists,
+  currentUserArtistsName,
   loading,
   currentUserName,
 }) => (
@@ -27,7 +27,7 @@ const ArtistListElementCard: FC<ArtistListElementCardProps> = ({
             {currentUserName && (
               <FollowButton
                 artist={artist}
-                currentUserArtists={currentUserArtists}
+                currentUserArtistsName={currentUserArtistsName}
                 loading={loading}
                 currentUserName={currentUserName}
               />

@@ -13,13 +13,13 @@ import toast from 'react-hot-toast';
 
 type FollowButtonProps = {
   currentUserName: string;
-  currentUserArtists: Set<Artist>;
+  currentUserArtistsName: Set<string>;
   artist: Artist;
   loading: boolean;
 };
 
 const FollowButton: FC<FollowButtonProps> = ({
-  currentUserArtists,
+  currentUserArtistsName,
   currentUserName,
   artist,
   loading,
@@ -60,8 +60,8 @@ const FollowButton: FC<FollowButtonProps> = ({
   };
 
   useEffect(() => {
-    if (currentUserArtists?.has(artist)) setIsFollow(true);
-  }, [artist, currentUserArtists]);
+    if (currentUserArtistsName?.has(artist.name)) setIsFollow(true);
+  }, [artist, currentUserArtistsName]);
 
   if (loading)
     return (

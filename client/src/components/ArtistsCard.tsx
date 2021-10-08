@@ -13,9 +13,9 @@ type ArtistsCardProps = {
 
 const ArtistsCard: FC<ArtistsCardProps> = ({ artists }) => {
   const [currentUserName, setCurrentUserName] = useState<string>('');
-  const [currentUserArtists, setCurrentUserArtists] = useState<Set<Artist>>(
-    new Set(),
-  );
+  const [currentUserArtistsName, setCurrentUserArtistsName] = useState<
+    Set<string>
+  >(new Set());
   const [loading, setLoading] = useState<boolean>(true);
   const { refetch } = useQuery<{ userByName: User }, UserByNameInput>(
     getUserByNameQuery,
@@ -32,7 +32,9 @@ const ArtistsCard: FC<ArtistsCardProps> = ({ artists }) => {
     if (currentUserName) {
       refetch()
         .then((res) => {
-          setCurrentUserArtists(new Set(res.data.userByName.artists));
+          setCurrentUserArtistsName(
+            new Set(res.data.userByName.artists.map((artist) => artist.name)),
+          );
           setLoading(false);
         })
         .catch((e: ApolloError) => {
@@ -47,7 +49,7 @@ const ArtistsCard: FC<ArtistsCardProps> = ({ artists }) => {
         <ArtistListElementCard
           key={artist.id}
           artist={artist}
-          currentUserArtists={currentUserArtists}
+          currentUserArtistsName={currentUserArtistsName}
           loading={loading}
           currentUserName={currentUserName}
         />
