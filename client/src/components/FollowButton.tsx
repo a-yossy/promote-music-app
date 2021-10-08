@@ -24,7 +24,7 @@ const FollowButton: FC<FollowButtonProps> = ({
   artist,
   loading,
 }) => {
-  const [isFollow, setIsFollow] = useState<boolean>(false);
+  const [isFollow, setIsFollow] = useState<boolean>();
   const [follow, { loading: followLoading }] = useMutation<
     { follow: User },
     FollowArtistInput
@@ -61,9 +61,10 @@ const FollowButton: FC<FollowButtonProps> = ({
 
   useEffect(() => {
     if (currentUserArtistsName?.has(artist.name)) setIsFollow(true);
+    else setIsFollow(false);
   }, [artist, currentUserArtistsName]);
 
-  if (loading)
+  if (isFollow === undefined || loading)
     return (
       <Button variant="outlined" sx={{ ml: 6 }}>
         <CircularProgress size={24.5} color="inherit" />
