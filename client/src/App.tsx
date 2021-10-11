@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import TopPage from 'pages/TopPage';
-import UserPage from 'pages/UserPage';
-import SignupPage from 'pages/SignupPage';
-import LoginPage from 'pages/LoginPage';
-import ArtistPage from 'pages/ArtistPage';
+import TopPage from 'pages/topPage';
+import UserPage from 'pages/userPage';
+import SignupPage from 'pages/signupPage';
+import LoginPage from 'pages/loginPage';
+import ArtistPage from 'pages/artistPage';
 import Header from 'components/Header';
 import { Route, Routes, Navigate } from 'react-router';
 
