@@ -35,9 +35,9 @@ const ArtistListElementCard: FC<ArtistListElementCardProps> = ({
     FollowArtistInput
   >(unfollowArtistMutation);
 
-  const handleFollow = (userName: string, artistName: string) => {
+  const handleFollow = () => {
     follow({
-      variables: { userName, artistName },
+      variables: { userName: currentUserName, artistName: artist.name },
     })
       .then((_) => {
         setIsFollow(true);
@@ -79,9 +79,7 @@ const ArtistListElementCard: FC<ArtistListElementCardProps> = ({
                   followLoading={followLoading}
                   unfollowLoading={unfollowLoading}
                   isFollow={isFollow}
-                  handleFollow={() =>
-                    handleFollow(currentUserName, artist.name)
-                  }
+                  handleFollow={handleFollow}
                   handleUnfollow={() =>
                     handleUnfollow(currentUserName, artist.name)
                   }
