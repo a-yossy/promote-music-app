@@ -60,10 +60,6 @@ const ArtistListElementCard: FC<ArtistListElementCardProps> = ({
   };
 
   useEffect(() => {
-    setIsFollowLoading(true);
-  }, []);
-
-  useEffect(() => {
     if (currentUserArtistsName?.has(artist.name)) setIsFollow(true);
     setIsFollowLoading(false);
   }, [artist, currentUserArtistsName]);
