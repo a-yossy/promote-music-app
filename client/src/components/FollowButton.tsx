@@ -1,69 +1,29 @@
-import { FC, useState, useEffect } from 'react';
-import { Artist } from 'lib/artist';
+import { FC, useState } from 'react';
 import { Button, CircularProgress } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-import {
-  FollowArtistInput,
-  followArtistMutation,
-  User,
-  unfollowArtistMutation,
-} from 'lib/user';
-import { useMutation } from '@apollo/client';
-import toast from 'react-hot-toast';
 
 type FollowButtonProps = {
-  currentUserName: string;
-  currentUserArtists: Set<Artist>;
-  artist: Artist;
   loading: boolean;
+  followLoading: boolean;
+  unfollowLoading: boolean;
+  isFollow: boolean;
+  handleFollow: () => void;
+  handleUnfollow: () => void;
+  isFollowLoading: boolean;
 };
 
 const FollowButton: FC<FollowButtonProps> = ({
-  currentUserArtists,
-  currentUserName,
-  artist,
   loading,
+  followLoading,
+  unfollowLoading,
+  isFollow,
+  handleFollow,
+  handleUnfollow,
+  isFollowLoading,
 }) => {
-  const [isFollow, setIsFollow] = useState<boolean>(false);
-  const [follow, { loading: followLoading }] = useMutation<
-    { follow: User },
-    FollowArtistInput
-  >(followArtistMutation);
-  const [unfollow, { loading: unfollowLoading }] = useMutation<
-    { unfollow: User },
-    FollowArtistInput
-  >(unfollowArtistMutation);
   const [hovered, setHovered] = useState<boolean>(false);
 
-  const handleFollow = (userName: string, artistName: string) => {
-    follow({
-      variables: { userName, artistName },
-    })
-      .then((_) => {
-        setIsFollow(true);
-      })
-      .catch((e: Error) => {
-        toast.error(`${e.message}`);
-      });
-  };
-
-  const handleUnfollow = (userName: string, artistName: string) => {
-    unfollow({
-      variables: { userName, artistName },
-    })
-      .then((_) => {
-        setIsFollow(false);
-      })
-      .catch((e: Error) => {
-        toast.error(e.message);
-      });
-  };
-
-  useEffect(() => {
-    if (currentUserArtists?.has(artist)) setIsFollow(true);
-  }, [artist, currentUserArtists]);
-
-  if (loading)
+  if (isFollowLoading || loading)
     return (
       <Button variant="outlined" sx={{ ml: 6 }}>
         <CircularProgress size={24.5} color="inherit" />
@@ -76,7 +36,7 @@ const FollowButton: FC<FollowButtonProps> = ({
         <LoadingButton
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
-          onClick={() => handleUnfollow(currentUserName, artist.name)}
+          onClick={handleUnfollow}
           variant="outlined"
           sx={{ ml: 6 }}
           loading={unfollowLoading}
@@ -86,7 +46,7 @@ const FollowButton: FC<FollowButtonProps> = ({
         </LoadingButton>
       ) : (
         <LoadingButton
-          onClick={() => handleFollow(currentUserName, artist.name)}
+          onClick={handleFollow}
           variant="contained"
           sx={{ ml: 6 }}
           loading={followLoading}

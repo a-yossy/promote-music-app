@@ -11,6 +11,7 @@ const cache = new InMemoryCache({
     Query: {
       fields: {
         users: offsetLimitPagination(),
+        artists: offsetLimitPagination(),
       },
     },
   },
