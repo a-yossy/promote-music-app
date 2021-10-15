@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { ApolloError, useQuery } from '@apollo/client';
 import {
@@ -19,11 +19,12 @@ const UserPage: FC = () => {
   const [artists, setArtists] = useState<Artist[]>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
 
-  const { loading, data, fetchMore } = useQuery<
+  const { loading, data, fetchMore, refetch } = useQuery<
     { currentUserArtists: Artist[] },
     CurrentUserArtistsInput
   >(getCurrentUserArtistsQuery, {
     variables: { userName: paramsUserName || '', offset: 0, limit: 20 },
+    fetchPolicy: 'network-only',
     onCompleted: (res) => {
       if (res) {
         setArtists(res.currentUserArtists);
@@ -34,6 +35,18 @@ const UserPage: FC = () => {
       navigate('/');
     },
   });
+
+  useEffect(() => {
+    refetch()
+      .then((res) => {
+        setArtists(res.data.currentUserArtists);
+        if (res.data.currentUserArtists.length > 0) setHasMore(true);
+        else setHasMore(false);
+      })
+      .catch((e: ApolloError) => {
+        toast.error(e.message);
+      });
+  }, [paramsUserName, refetch]);
 
   const getCurrentUserArtistsData = () => {
     fetchMore({
