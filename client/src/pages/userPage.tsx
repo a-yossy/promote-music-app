@@ -40,8 +40,7 @@ const UserPage: FC = () => {
     refetch()
       .then((res) => {
         setArtists(res.data.currentUserArtists);
-        if (res.data.currentUserArtists.length > 0) setHasMore(true);
-        else setHasMore(false);
+        setHasMore(res.data.currentUserArtists.length > 0);
       })
       .catch((e: ApolloError) => {
         toast.error(e.message);
