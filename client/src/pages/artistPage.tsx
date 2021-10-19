@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useRef } from 'react';
 import { useQuery, useMutation, ApolloError } from '@apollo/client';
 import ArtistsCard from 'components/ArtistsCard';
 import {
@@ -14,7 +14,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 
 const ArtistPage: FC = () => {
   const [artists, setArtists] = useState<Artist[]>([]);
-  const [value, setValue] = useState<string>('');
+  const inputRef = useRef<HTMLInputElement>();
   const [hasMore, setHasMore] = useState<boolean>(true);
   const { error, loading, data, fetchMore } = useQuery<ArtistsData>(
     getArtistsQuery,
@@ -35,13 +35,12 @@ const ArtistPage: FC = () => {
     createArtistInput
   >(createArtistMutation);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
-  };
-
   const handleCreateArtist = () => {
+    const ArtistName = inputRef.current?.value
+      ? String(inputRef.current?.value)
+      : '';
     const toastArtistId = toast.loading('Loading...');
-    createArtist({ variables: { name: value } })
+    createArtist({ variables: { name: ArtistName } })
       .then((_) => {
         toast.success('Artist Created', {
           id: toastArtistId,
@@ -53,7 +52,7 @@ const ArtistPage: FC = () => {
           id: toastArtistId,
         });
       });
-    setValue('');
+    if (inputRef.current?.value) inputRef.current.value = '';
   };
 
   const getArtistsData = () => {
@@ -80,11 +79,7 @@ const ArtistPage: FC = () => {
   return (
     <>
       <Toaster />
-      <Input
-        value={value}
-        onChange={handleChange}
-        sx={{ ml: 3, mt: 4, mb: 2 }}
-      />
+      <Input inputRef={inputRef} sx={{ ml: 3, mt: 4, mb: 2 }} />
       <Button onClick={handleCreateArtist} variant="contained" size="small">
         登録
       </Button>
