@@ -1,4 +1,4 @@
-import React, { FC, useState, useRef } from 'react';
+import { FC, useState, useRef } from 'react';
 import { useQuery, useMutation, ApolloError } from '@apollo/client';
 import ArtistsCard from 'components/ArtistsCard';
 import {
