@@ -13,9 +13,24 @@ export type createArtistInput = {
   name: string;
 };
 
+export type CurrentUserArtistsInput = {
+  userName: string;
+  offset: number;
+  limit: number;
+};
+
 export const getArtistsQuery = gql`
   query Artists($offset: Int!, $limit: Int!) {
     artists(offset: $offset, limit: $limit) {
+      id
+      name
+    }
+  }
+`;
+
+export const getCurrentUserArtistsQuery = gql`
+  query CurrentUserArtists($userName: String!, $offset: Int!, $limit: Int!) {
+    currentUserArtists(userName: $userName, offset: $offset, limit: $limit) {
       id
       name
     }

@@ -25,6 +25,19 @@ module Types
       end
     end
 
+    field :current_user_artists, [Types::ArtistType], null: false do
+      argument :user_name, String, required: true
+      argument :offset, Int, required: true
+      argument :limit, Int, required: true
+    end
+    def current_user_artists(user_name:,offset:, limit:)
+      if artists = User.find_by(name: user_name).artists.limit(limit).offset(offset)
+        artists
+      else
+        raise GraphQL::ExecutionError, "User not found."
+      end
+    end
+
     field :artists, [Types::ArtistType], null: false do
       argument :offset, Int, required: true
       argument :limit, Int, required: true
