@@ -25,11 +25,6 @@ const UserPage: FC = () => {
   >(getCurrentUserArtistsQuery, {
     variables: { userName: paramsUserName || '', offset: 0, limit: 20 },
     fetchPolicy: 'network-only',
-    onCompleted: (res) => {
-      if (res) {
-        setArtists(res.currentUserArtists);
-      }
-    },
     onError: (e: ApolloError) => {
       toast.error(e.message);
       navigate('/');
