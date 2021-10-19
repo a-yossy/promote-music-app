@@ -37,7 +37,7 @@ const ArtistPage: FC = () => {
 
   const handleCreateArtist = () => {
     const ArtistName = inputRef.current?.value
-      ? String(inputRef.current?.value)
+      ? String(inputRef.current.value)
       : '';
     const toastArtistId = toast.loading('Loading...');
     createArtist({ variables: { name: ArtistName } })
