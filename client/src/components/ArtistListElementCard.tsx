@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect, useCallback } from 'react';
 import { Artist } from 'lib/artist';
 import { Card, CardContent, Typography, Grid } from '@mui/material';
 import FollowButton from 'components/FollowButton';
@@ -35,7 +35,7 @@ const ArtistListElementCard: FC<ArtistListElementCardProps> = ({
     FollowArtistInput
   >(unfollowArtistMutation);
 
-  const handleFollow = () => {
+  const handleFollow = useCallback(() => {
     follow({
       variables: { userName: currentUserName, artistName: artist.name },
     })
@@ -45,9 +45,9 @@ const ArtistListElementCard: FC<ArtistListElementCardProps> = ({
       .catch((e: Error) => {
         toast.error(`${e.message}`);
       });
-  };
+  }, [artist.name, currentUserName, follow]);
 
-  const handleUnfollow = () => {
+  const handleUnfollow = useCallback(() => {
     unfollow({
       variables: { userName: currentUserName, artistName: artist.name },
     })
@@ -57,7 +57,7 @@ const ArtistListElementCard: FC<ArtistListElementCardProps> = ({
       .catch((e: Error) => {
         toast.error(e.message);
       });
-  };
+  }, [artist.name, currentUserName, unfollow]);
 
   useEffect(() => {
     if (currentUserArtistsName?.has(artist.name)) setIsFollow(true);
