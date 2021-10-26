@@ -36,9 +36,7 @@ const ArtistPage: FC = () => {
   >(createArtistMutation);
 
   const handleCreateArtist = () => {
-    const ArtistName = inputRef.current?.value
-      ? String(inputRef.current.value)
-      : '';
+    const ArtistName = String(inputRef.current?.value);
     const toastArtistId = toast.loading('Loading...');
     createArtist({ variables: { name: ArtistName } })
       .then((_) => {
