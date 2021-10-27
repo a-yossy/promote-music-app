@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useRef, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import { createUserMutation, UserData, UserByNameInput } from 'lib/user';
 import { useNavigate } from 'react-router';
@@ -12,15 +12,12 @@ const SignupPage: FC = () => {
   const [createUser] = useMutation<{ createUser: UserData }, UserByNameInput>(
     createUserMutation,
   );
-  const [value, setValue] = useState<string>('');
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
-  };
+  const inputRef = useRef<HTMLInputElement>();
 
   const handleSignup = () => {
+    const UserName = String(inputRef.current?.value);
     const toastSignupId = toast.loading('Loading...');
-    createUser({ variables: { name: value } })
+    createUser({ variables: { name: UserName } })
       .then((res) => {
         setLoginUserName(res.data?.createUser.user.name as string);
         toast.success('User Created', {
@@ -34,7 +31,7 @@ const SignupPage: FC = () => {
           id: toastSignupId,
         });
       });
-    setValue('');
+    if (inputRef.current?.value) inputRef.current.value = '';
   };
 
   useEffect(() => {
@@ -46,11 +43,7 @@ const SignupPage: FC = () => {
   return (
     <>
       <Toaster />
-      <Input
-        value={value}
-        onChange={handleChange}
-        sx={{ ml: 3, mt: 4, mb: 2 }}
-      />
+      <Input inputRef={inputRef} sx={{ ml: 3, mt: 4, mb: 2 }} />
       <Button onClick={handleSignup} variant="contained" size="small">
         作成
       </Button>
