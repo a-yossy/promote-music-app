@@ -23,7 +23,7 @@ RSpec.describe User, type: :model do
 
     context 'with unique name' do
       let(:other_user) { create(:user) }
-      let(:name) { other_user.name + ("a".."z").to_a.shuffle[1] }
+      let(:name) { other_user.name + ("a".."z").to_a.shuffle[0] }
 
       it { is_expected.not_to be_of_kind(:name, :taken) }
     end
