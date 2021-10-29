@@ -13,11 +13,23 @@ RSpec.describe User, type: :request do
       GRAPHQL
     }
     let(:user) { create(:user) }
-    let(:result) { ServerSchema.execute(query_string, variables: { name: user.name }) }
-    let(:user_result) { result['data']['userByName'] }
 
-    it 'should return right user' do
-      expect(user_result['name']).to eq user.name
+    context 'when user exists' do
+      let(:result) { ServerSchema.execute(query_string, variables: { name: user.name }) }
+      let(:user_result) { result['data']['userByName'] }
+
+      it 'should return right user' do
+        expect(user_result['name']).to eq user.name
+      end
+    end
+
+    context 'when user does not exist' do
+      let(:result) { ServerSchema.execute(query_string, variables: { name: 'sarueru' }) }
+      let(:user_result) { result['data'] }
+
+      it 'should return nil' do
+        expect(user_result).to eq nil
+      end
     end
   end
 end
