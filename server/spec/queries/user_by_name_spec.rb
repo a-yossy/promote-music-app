@@ -13,7 +13,7 @@ RSpec.describe User, type: :request do
 
     let(:user) { create(:user) }
 
-    it do
+    it 'should return right user' do
       result = ServerSchema.execute(query_string, variables: { name: user.name })
       user_result = result['data']['userByName']
       expect(user_result['name']).to eq user.name
