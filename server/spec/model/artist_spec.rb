@@ -22,8 +22,8 @@ RSpec.describe Artist, type: :model do
     end
 
     context 'with unique name' do
-      let(:other_artist) { create(:artist) }
-      let(:name) { other_artist.name + ('a'..'z').to_a.shuffle[0] }
+      let(:other_artist) { create(:artist, name: 'artist1') }
+      let(:name) { 'artist2' }
 
       it { is_expected.not_to be_of_kind(:name, :taken) }
     end
