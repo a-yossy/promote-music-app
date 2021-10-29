@@ -22,15 +22,15 @@ RSpec.describe User, type: :model do
     end
 
     context 'when user name does not already exist' do
-      let(:other_user) { create(:user) }
-      let(:name) { other_user.name + ("a".."z").to_a.shuffle[0] }
+      let(:other_user) { create(:user, name: 'user1') }
+      let(:name) { 'user2' }
 
       it { is_expected.not_to be_of_kind(:name, :taken) }
     end
 
     context 'when user name already exists' do
-      let(:other_user) { create(:user) }
-      let(:name) { other_user.name }
+      let(:other_user) { create(:user, name: 'user1') }
+      let(:name) { 'user1' }
 
       it { is_expected.to be_of_kind(:name, :taken) }
     end
