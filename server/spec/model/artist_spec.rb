@@ -9,13 +9,13 @@ RSpec.describe Artist, type: :model do
       artist.errors
     end
 
-    context 'with blank name' do
+    context 'when name is blank' do
       let(:name) { '' }
 
       it { is_expected.to be_of_kind(:name, :blank) }
     end
 
-    context 'with not blank name' do
+    context 'when name is not blank' do
       let(:name) { 'artist1' }
 
       it { is_expected.not_to be_of_kind(:name, :blank) }

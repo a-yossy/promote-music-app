@@ -9,26 +9,26 @@ RSpec.describe User, type: :model do
       user.errors
     end
 
-    context 'with blank name' do
+    context 'when name is blank' do
       let(:name) { '' }
 
       it { is_expected.to be_of_kind(:name, :blank) }
     end
 
-    context 'with not blank format' do
+    context 'when name is not blank' do
       let(:name) { 'user' }
 
       it { is_expected.not_to be_of_kind(:name, :blank) }
     end
 
-    context 'with unique name' do
+    context 'when user name does not already exist' do
       let(:other_user) { create(:user) }
       let(:name) { other_user.name + ("a".."z").to_a.shuffle[0] }
 
       it { is_expected.not_to be_of_kind(:name, :taken) }
     end
 
-    context 'with not unique name' do
+    context 'when user name already exists' do
       let(:other_user) { create(:user) }
       let(:name) { other_user.name }
 
