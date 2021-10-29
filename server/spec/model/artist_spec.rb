@@ -21,14 +21,14 @@ RSpec.describe Artist, type: :model do
       it { is_expected.not_to be_of_kind(:name, :blank) }
     end
 
-    context 'with unique name' do
+    context 'when artist name does not already exist' do
       let(:other_artist) { create(:artist, name: 'artist1') }
       let(:name) { 'artist2' }
 
       it { is_expected.not_to be_of_kind(:name, :taken) }
     end
 
-    context 'with unique name' do
+    context 'when artist name already exists' do
       let(:other_artist) { create(:artist) }
       let(:name) { other_artist.name }
 
