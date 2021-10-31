@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe "name" do
+  describe "name validation" do
     let(:user) { build(:user, name: name) }
 
     subject do
@@ -9,30 +9,34 @@ RSpec.describe User, type: :model do
       user.errors
     end
 
-    context 'when name is blank' do
-      let(:name) { '' }
+    describe 'blankness' do
+      context 'when name is blank' do
+        let(:name) { '' }
 
-      it { is_expected.to be_of_kind(:name, :blank) }
+        it { is_expected.to be_of_kind(:name, :blank) }
+      end
+
+      context 'when name is not blank' do
+        let(:name) { 'user' }
+
+        it { is_expected.not_to be_of_kind(:name, :blank) }
+      end
     end
 
-    context 'when name is not blank' do
-      let(:name) { 'user' }
-
-      it { is_expected.not_to be_of_kind(:name, :blank) }
-    end
-
-    context 'when user name does not already exist' do
+    describe 'uniqueness' do
       let!(:other_user) { create(:user, name: 'user1') }
-      let(:name) { 'user2' }
 
-      it { is_expected.not_to be_of_kind(:name, :taken) }
-    end
+      context 'when user name does not exist' do
+        let(:name) { 'user2' }
 
-    context 'when user name already exists' do
-      let!(:other_user) { create(:user, name: 'user1') }
-      let(:name) { 'user1' }
+        it { is_expected.not_to be_of_kind(:name, :taken) }
+      end
 
-      it { is_expected.to be_of_kind(:name, :taken) }
+      context 'when user name already exists' do
+        let(:name) { 'user1' }
+
+        it { is_expected.to be_of_kind(:name, :taken) }
+      end
     end
   end
 
