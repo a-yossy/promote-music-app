@@ -1,41 +1,43 @@
 require 'rails_helper'
 
 RSpec.describe Artist, type: :model do
-  describe 'name validation' do
-    let(:artist) { build(:artist, name: name) }
+  describe 'validations' do
+    describe 'name' do
+      let(:artist) { build(:artist, name: name) }
 
-    subject do
-      artist.valid?
-      artist.errors
-    end
-
-    describe 'blankness' do
-      context 'when name is blank' do
-        let(:name) { '' }
-
-        it { is_expected.to be_of_kind(:name, :blank) }
+      subject do
+        artist.valid?
+        artist.errors
       end
 
-      context 'when name is not blank' do
-        let(:name) { 'artist1' }
+      describe 'blankness' do
+        context 'when name is blank' do
+          let(:name) { '' }
 
-        it { is_expected.not_to be_of_kind(:name, :blank) }
-      end
-    end
+          it { is_expected.to be_of_kind(:name, :blank) }
+        end
 
-    describe 'uniqueness' do
-      let!(:other_artist) { create(:artist, name: 'artist1') }
+        context 'when name is not blank' do
+          let(:name) { 'artist1' }
 
-      context 'when artist name does not exist' do
-        let(:name) { 'artist2' }
-
-        it { is_expected.not_to be_of_kind(:name, :taken) }
+          it { is_expected.not_to be_of_kind(:name, :blank) }
+        end
       end
 
-      context 'when artist name already exists' do
-        let(:name) { 'artist1' }
+      describe 'uniqueness' do
+        let!(:other_artist) { create(:artist, name: 'artist1') }
 
-        it { is_expected.to be_of_kind(:name, :taken) }
+        context 'when artist name does not exist' do
+          let(:name) { 'artist2' }
+
+          it { is_expected.not_to be_of_kind(:name, :taken) }
+        end
+
+        context 'when artist name already exists' do
+          let(:name) { 'artist1' }
+
+          it { is_expected.to be_of_kind(:name, :taken) }
+        end
       end
     end
   end
