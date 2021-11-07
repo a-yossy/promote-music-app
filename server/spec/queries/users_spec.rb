@@ -19,7 +19,8 @@ RSpec.describe User, type: :request do
       5.times do |n|
         let!("user_#{n + 1}".to_s) { create(:user, name: "user#{n + 1}") }
       end
-      it 'should return right user' do
+
+      it 'should return right users' do
         expect(result_data).to eq 5.times.map { |n| {"id" => "#{n + 1}", "name" => "user#{n + 1}"}}
       end
     end

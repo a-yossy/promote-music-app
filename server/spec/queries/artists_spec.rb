@@ -19,7 +19,8 @@ RSpec.describe Artist, type: :request do
       5.times do |n|
         let!("artist_#{n + 1}".to_s) { create(:artist, name: "artist#{n + 1}") }
       end
-      it 'should return right artist' do
+
+      it 'should return right artists' do
         expect(result_data).to eq 5.times.map { |n| {"id" => "#{n + 1}", "name" => "artist#{n + 1}"}}
       end
     end
