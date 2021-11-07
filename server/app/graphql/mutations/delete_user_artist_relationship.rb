@@ -19,7 +19,7 @@ module Mutations
       user = User.find_by(name: user_name)
       artist = Artist.find_by(name: artist_name)
       user_artist_relationship = UserArtist.find_by(user: user, artist: artist)
-      if !user_artist_relationship.destroy
+      if !user_artist_relationship || !user_artist_relationship.destroy
         raise GraphQL::ExecutionError, "Not following"
       end
     end
