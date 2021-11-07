@@ -38,7 +38,7 @@ RSpec.describe Artist, type: :request do
       let(:name) { '' }
 
       it 'should return nil' do
-        expect(result_data).to eq nil
+        expect(result_data).to eq nil and change{ Artist.count }.by(0)
       end
     end
   end
