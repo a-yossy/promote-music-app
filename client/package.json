@@ -24,13 +24,13 @@
     "react-router": "^6.0.0-beta.4",
     "react-router-dom": "^6.0.0-beta.4",
     "react-scripts": "4.0.3",
-    "typescript": "^4.4.3",
+    "typescript": "^4.4.4",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject",
     "fix": "npm run -s format && npm run -s lint:fix",
     "format": "prettier --write --loglevel=warn '{public,src}/**/*.{js,jsx,ts,tsx,html,gql,graphql,json}'",
@@ -68,6 +68,7 @@
     "@types/axios": "^0.14.0",
     "@types/prettier": "^2.3.2",
     "@types/react-infinite-scroller": "^1.2.2",
+    "@types/react-test-renderer": "^17.0.1",
     "@types/stylelint": "^13.13.2",
     "@types/testing-library__jest-dom": "^5.14.1",
     "@types/testing-library__user-event": "^4.2.0",
@@ -81,12 +82,15 @@
     "eslint-plugin-react": "^7.26.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^7.0.2",
+    "jest": "^27.3.1",
     "lint-staged": "^11.1.2",
     "prettier": "^2.4.1",
+    "react-test-renderer": "^17.0.2",
     "stylelint": "^13.13.1",
     "stylelint-config-recess-order": "^2.5.0",
     "stylelint-config-standard": "^22.0.0",
-    "stylelint-order": "^4.1.0"
+    "stylelint-order": "^4.1.0",
+    "ts-jest": "^27.0.7"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
