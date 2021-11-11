@@ -48,7 +48,7 @@ const UserPage: FC = () => {
 
   useEffect(() => {
     setLoginUser(getLoginUserName);
-  }, []);
+  }, [isEditMode]);
 
   const getCurrentUserArtistsData = () => {
     fetchMore({
