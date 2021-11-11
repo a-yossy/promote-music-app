@@ -24,6 +24,11 @@ export type FollowArtistInput = {
   artistName: string;
 };
 
+export type UpdateUserInput = {
+  currentName: string;
+  updateName: string;
+};
+
 export const getUsersQuery = gql`
   query Users($offset: Int!, $limit: Int!) {
     users(offset: $offset, limit: $limit) {
@@ -85,6 +90,17 @@ export const unfollowArtistMutation = gql`
     deleteUserArtistRelationship(
       input: { userName: $userName, artistName: $artistName }
     ) {
+      user {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const updateUserMutation = gql`
+  mutation UpdateUser($currentName: String!, $updateName: String!) {
+    updateUser(input: { currentName: $currentName, updateName: $updateName }) {
       user {
         id
         name
