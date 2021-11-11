@@ -4,6 +4,7 @@ import { updateUserMutation, UpdateUserInput, UserData } from 'lib/user';
 import setLoginUserName from 'lib/setLoginUserName';
 import { Button, Input } from '@mui/material';
 import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from 'react-router';
 
 type UpdateUserProps = {
   currentName: string;
@@ -14,6 +15,7 @@ const UpdateUser: FC<UpdateUserProps> = ({
   currentName,
   handleNotEditMode,
 }) => {
+  const navigate = useNavigate();
   const [updateUser] = useMutation<{ updateUser: UserData }, UpdateUserInput>(
     updateUserMutation,
   );
@@ -28,6 +30,7 @@ const UpdateUser: FC<UpdateUserProps> = ({
         toast.success('Update completed', {
           id: toastUpdateUserId,
         });
+        navigate(`/user/${res.data?.updateUser.user.name as string}`);
         handleNotEditMode();
       })
       .catch((e: ApolloError) => {
