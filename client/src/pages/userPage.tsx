@@ -6,7 +6,7 @@ import {
   getCurrentUserArtistsQuery,
   CurrentUserArtistsInput,
 } from 'lib/artist';
-import { DeleteUserInput, deleteUserMutation } from 'lib/user';
+import { DeleteUserInput, deleteUserMutation, User } from 'lib/user';
 import ArtistsCard from 'components/ArtistsCard';
 import getLoginUserName from 'lib/getLoginUserName';
 import logout from 'lib/logout';
@@ -15,6 +15,7 @@ import { Typography, Grid, CircularProgress, Box, Button } from '@mui/material';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import InfiniteScroll from 'react-infinite-scroller';
+import cache from 'cache';
 
 const UserPage: FC = () => {
   const params = useParams();
@@ -83,6 +84,15 @@ const UserPage: FC = () => {
       .then(() => {
         toast.success('Successfully deleted', {
           id: toastDeleteUserId,
+        });
+        cache.modify({
+          fields: {
+            users: (existingUserRefs: User[], { readField }) =>
+              existingUserRefs.filter(
+                (userRef: User) =>
+                  paramsUserName !== readField('name', userRef),
+              ),
+          },
         });
         logout();
         navigate('/');

@@ -1,22 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloProvider, ApolloClient } from '@apollo/client';
 import { BrowserRouter } from 'react-router-dom';
 import { URI } from 'constant';
+import cache from 'cache';
 import App from 'App';
-import { offsetLimitPagination } from '@apollo/client/utilities';
-
-const cache = new InMemoryCache({
-  typePolicies: {
-    Query: {
-      fields: {
-        users: offsetLimitPagination(),
-        artists: offsetLimitPagination(),
-        currentUserArtists: offsetLimitPagination(),
-      },
-    },
-  },
-});
 
 const client = new ApolloClient({
   cache,
