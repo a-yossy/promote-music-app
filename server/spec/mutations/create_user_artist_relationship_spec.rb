@@ -28,7 +28,7 @@ RSpec.describe UserArtist, type: :request do
       let!(:user_artist) { create(:user_artist, user: user, artist: artist) }
 
       it 'should count of UserArtist does not change' do
-        expect { subject }.to change{ UserArtist.count }.by(0)
+        expect { subject }.not_to change{ UserArtist.count }
       end
     end
   end

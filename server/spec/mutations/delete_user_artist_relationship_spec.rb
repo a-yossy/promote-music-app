@@ -28,7 +28,7 @@ RSpec.describe UserArtist, type: :request do
 
     context 'when user does not follow artist' do
       it 'should count of UserArtist does not change' do
-        expect { subject }.to change{ UserArtist.count }.by(0)
+        expect { subject }.not_to change{ UserArtist.count }
       end
     end
   end
