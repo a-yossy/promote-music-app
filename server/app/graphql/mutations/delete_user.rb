@@ -10,7 +10,7 @@ module Mutations
     # def resolve(name:)
     #   { post: ... }
     # end
-    field :user, Types::UserType, null: false
+    field :user, Types::UserType, null: true
     argument :name, String, required: true
 
     def resolve(name:)
