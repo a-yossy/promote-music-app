@@ -6,7 +6,7 @@ import {
   getCurrentUserArtistsQuery,
   CurrentUserArtistsInput,
 } from 'lib/artist';
-import { DeleteUserInput, deleteUserMutation, User } from 'lib/user';
+import { DeleteUserInput, deleteUserMutation, User, UserData } from 'lib/user';
 import ArtistsCard from 'components/ArtistsCard';
 import getLoginUserName from 'lib/getLoginUserName';
 import logout from 'lib/logout';
@@ -38,7 +38,9 @@ const UserPage: FC = () => {
     },
   });
 
-  const [deleteUser] = useMutation<DeleteUserInput>(deleteUserMutation);
+  const [deleteUser] = useMutation<{ deleteUser: UserData }, DeleteUserInput>(
+    deleteUserMutation,
+  );
 
   useEffect(() => {
     refetch()
@@ -81,7 +83,7 @@ const UserPage: FC = () => {
   const handleDelete = () => {
     const toastDeleteUserId = toast.loading('Loading...');
     deleteUser({ variables: { name: paramsUserName } })
-      .then(() => {
+      .then((res) => {
         toast.success('Successfully deleted', {
           id: toastDeleteUserId,
         });
@@ -90,7 +92,7 @@ const UserPage: FC = () => {
             users: (existingUserRefs: User[], { readField }) =>
               existingUserRefs.filter(
                 (userRef: User) =>
-                  paramsUserName !== readField('name', userRef),
+                  res.data?.deleteUser.user.id !== readField('id', userRef),
               ),
           },
         });
