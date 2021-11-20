@@ -16,8 +16,10 @@ RSpec.describe Artist, type: :request do
     let(:result_data) { result['data']['artists'] }
 
     context 'when artists exist' do
-      5.times do |n|
-        let!("artist_#{n + 1}".to_s) { create(:artist, name: "artist#{n + 1}") }
+      before do
+        create_list(:artist, 5) do |artist, i|
+          artist.name = "artist#{i + 1}"
+        end
       end
 
       it 'should return right artists' do
