@@ -21,13 +21,13 @@ RSpec.describe UserArtist, type: :request do
     context 'when user follows artist' do
       let!(:user_artist) { create(:user_artist, user: user, artist: artist) }
 
-      it 'should count of UserArtist decreases 1' do
+      it 'should decrease count of UserArtist by 1' do
         expect { subject }.to change{ UserArtist.count }.by(-1)
       end
     end
 
     context 'when user does not follow artist' do
-      it 'should count of UserArtist does not change' do
+      it 'should not change count of UserArtist' do
         expect { subject }.not_to change{ UserArtist.count }
       end
     end

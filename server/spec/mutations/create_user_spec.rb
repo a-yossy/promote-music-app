@@ -20,7 +20,7 @@ RSpec.describe User, type: :request do
     context 'when user name is valid' do
       let(:name) { 'user' }
 
-      it 'should return right user' do
+      it 'should create an user' do
         expect(result_data['user']['name']).to eq 'user' and change{ User.count }.by(1)
       end
     end
@@ -31,7 +31,7 @@ RSpec.describe User, type: :request do
       end
       let(:name) { 'user' }
 
-      it 'should return nil' do
+      it 'should not create an user' do
         expect(result_data).to eq nil and change{ User.count }.by(0)
       end
     end
@@ -39,7 +39,7 @@ RSpec.describe User, type: :request do
     context 'when user name is nil' do
       let(:name) { '' }
 
-      it 'should return nil' do
+      it 'should not create an user' do
         expect(result_data).to eq nil and change{ User.count }.by(0)
       end
     end
