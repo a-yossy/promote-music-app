@@ -23,7 +23,13 @@ RSpec.describe Artist, type: :request do
       end
 
       it 'should return right artists' do
-        expect(result_data).to eq 5.times.map { |n| {"id" => "#{n + 1}", "name" => "artist#{n + 1}"}}
+        expect(result_data).to eq [
+                                    {"id" => "1", "name" => "artist1"},
+                                    {"id" => "2", "name" => "artist2"},
+                                    {"id" => "3", "name" => "artist3"},
+                                    {"id" => "4", "name" => "artist4"},
+                                    {"id" => "5", "name" => "artist5"}
+                                  ]
       end
     end
 
