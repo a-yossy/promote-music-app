@@ -26,7 +26,9 @@ RSpec.describe User, type: :request do
     end
 
     context 'when same user name already exists' do
-      let!(:other_user) { create(:user, name: 'user') }
+      before do
+        create(:user, name: 'user')
+      end
       let(:name) { 'user' }
 
       it 'should return nil' do
