@@ -19,7 +19,9 @@ RSpec.describe UserArtist, type: :request do
     subject { ServerSchema.execute(query_string, variables: { userName: 'user', artistName: 'artist' }) }
 
     context 'when user follows artist' do
-      let!(:user_artist) { create(:user_artist, user: user, artist: artist) }
+      before do
+        create(:user_artist, user: user, artist: artist)
+      end
 
       it 'should decrease count of UserArtist by 1' do
         expect { subject }.to change{ UserArtist.count }.by(-1)
