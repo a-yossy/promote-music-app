@@ -16,12 +16,20 @@ RSpec.describe User, type: :request do
     let(:result_data) { result['data']['users'] }
 
     context 'when users exist' do
-      5.times do |n|
-        let!("user_#{n + 1}".to_s) { create(:user, name: "user#{n + 1}") }
+      before do
+        create_list(:user, 5) do |user, i|
+          user.name = "user#{i + 1}"
+        end
       end
 
       it 'should return right users' do
-        expect(result_data).to eq 5.times.map { |n| {"id" => "#{n + 1}", "name" => "user#{n + 1}"}}
+        expect(result_data).to eq [
+                                    {"id" => "1", "name" => "user1"},
+                                    {"id" => "2", "name" => "user2"},
+                                    {"id" => "3", "name" => "user3"},
+                                    {"id" => "4", "name" => "user4"},
+                                    {"id" => "5", "name" => "user5"}
+                                  ]
       end
     end
 
