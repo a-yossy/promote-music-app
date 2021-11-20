@@ -21,7 +21,7 @@ RSpec.describe Artist, type: :request do
       let(:name) { 'artist' }
 
       it 'should return right artist' do
-        expect(result_data['artist']['name']).to eq 'artist' and change{ Artist.count }.by(1)
+        expect(result_data['artist']['name']).to eq 'artist' and change(Artist, :count).by(1)
       end
     end
 
