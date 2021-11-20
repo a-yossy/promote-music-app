@@ -26,9 +26,7 @@ RSpec.describe Artist, type: :request do
     end
 
     context 'when same artist name already exists' do
-      before do
-        create(:artist, name: 'artist')
-      end
+      before { create(:artist, name: 'artist') }
       let(:name) { 'artist' }
 
       it 'should not create an artist' do

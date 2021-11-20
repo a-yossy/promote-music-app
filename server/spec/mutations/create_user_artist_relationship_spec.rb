@@ -25,9 +25,7 @@ RSpec.describe UserArtist, type: :request do
     end
 
     context 'when user already follows artist' do
-      before do
-        create(:user_artist, user: user, artist: artist)
-      end
+      before { create(:user_artist, user: user, artist: artist) }
 
       it 'should not change count of UserArtist' do
         expect { subject }.not_to change{ UserArtist.count }
