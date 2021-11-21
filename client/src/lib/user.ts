@@ -116,10 +116,7 @@ export const updateUserMutation = gql`
 export const deleteUserMutation = gql`
   mutation DeleteUser($name: String!) {
     deleteUser(input: { name: $name }) {
-      user {
-        id
-        name
-      }
+      clientMutationId
     }
   }
 `;
