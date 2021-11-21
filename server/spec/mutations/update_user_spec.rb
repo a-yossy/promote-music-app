@@ -26,7 +26,7 @@ RSpec.describe User, type: :request do
     end
 
     context 'when update user name already exists' do
-      let!(:other_user) { create(:user, name: 'update user') }
+      before { create(:user, name: 'update user') }
       let(:name) { 'update user' }
 
       it 'should not change user name' do
