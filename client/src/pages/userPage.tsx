@@ -83,7 +83,7 @@ const UserPage: FC = () => {
   const handleDelete = () => {
     const deleteUserToastId = toast.loading('Loading...');
     deleteUser({ variables: { name: paramsUserName } })
-      .then((res) => {
+      .then(() => {
         toast.success('Successfully deleted', {
           id: deleteUserToastId,
         });
@@ -92,7 +92,7 @@ const UserPage: FC = () => {
             users: (existingUserRefs: User[], { readField }) =>
               existingUserRefs.filter(
                 (userRef: User) =>
-                  res.data?.deleteUser.user.id !== readField('id', userRef),
+                  paramsUserName !== readField('name', userRef),
               ),
           },
         });
