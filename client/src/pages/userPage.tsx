@@ -91,8 +91,7 @@ const UserPage: FC = () => {
           fields: {
             users: (existingUserRefs: User[], { readField }) =>
               existingUserRefs.filter(
-                (userRef: User) =>
-                  paramsUserName !== readField('name', userRef),
+                (userRef) => paramsUserName !== readField('name', userRef),
               ),
           },
         });
