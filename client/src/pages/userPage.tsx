@@ -81,11 +81,11 @@ const UserPage: FC = () => {
   };
 
   const handleDelete = () => {
-    const toastDeleteUserId = toast.loading('Loading...');
+    const deleteUserToastId = toast.loading('Loading...');
     deleteUser({ variables: { name: paramsUserName } })
       .then((res) => {
         toast.success('Successfully deleted', {
-          id: toastDeleteUserId,
+          id: deleteUserToastId,
         });
         cache.modify({
           fields: {
@@ -101,7 +101,7 @@ const UserPage: FC = () => {
       })
       .catch((e: ApolloError) => {
         toast.error(e.message, {
-          id: toastDeleteUserId,
+          id: deleteUserToastId,
         });
       });
   };
