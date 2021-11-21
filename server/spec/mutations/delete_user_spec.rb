@@ -24,7 +24,7 @@ RSpec.describe User, type: :request do
     context "when user exists" do
       let(:name) { 'user' }
 
-      it 'should user is deleted' do
+      it 'should delete an user' do
         expect{ subject }.to change{ User.count }.by(-1) and change{ UserArtist.count }.by(-2)
       end
     end
