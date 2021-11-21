@@ -28,13 +28,5 @@ RSpec.describe User, type: :request do
         expect{ subject }.to change{ User.count }.by(-1) and change{ UserArtist.count }.by(-2)
       end
     end
-
-    context 'when user does not exist' do
-      let(:name) { 'other_user' }
-
-      it 'should user is not deleted' do
-        expect{ subject }.not_to change{ User.count } and change{ UserArtist.count }
-      end
-    end
   end
 end
