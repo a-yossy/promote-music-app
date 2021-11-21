@@ -1,6 +1,5 @@
 module Mutations
   class DeleteUser < BaseMutation
-    field :user, Types::UserType, null: false
     argument :name, String, required: true
 
     def resolve(name:)
