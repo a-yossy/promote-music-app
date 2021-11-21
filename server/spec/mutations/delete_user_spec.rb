@@ -14,11 +14,8 @@ RSpec.describe User, type: :request do
         }
       GraphQL
     }
-    let!(:user) { create(:user, name: 'user') }
-    let!(:artist_1) { create(:artist) }
-    let!(:artist_2) { create(:artist) }
-    let!(:user_artist_1) { create(:user_artist, user: user, artist: artist_1) }
-    let!(:user_artist_2) { create(:user_artist, user: user, artist: artist_2) }
+    let(:artists) { create_list(:artist, 2) }
+    before { create(:user, name: 'user', artists: artists) }
     subject { ServerSchema.execute(query_string, variables: { name: name }) }
 
     context "when user exists" do
