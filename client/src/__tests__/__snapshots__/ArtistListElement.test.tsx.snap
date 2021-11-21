@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ArtistListElement artist={{ id: 1, name: "artist" }} /> should render artist 1`] = `
+<div>
+  artist
+</div>
+`;
