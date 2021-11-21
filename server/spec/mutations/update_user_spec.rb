@@ -20,7 +20,7 @@ RSpec.describe User, type: :request do
     context 'when update user name is valid' do
       let(:name) { 'update user' }
 
-      it 'should user name changes' do
+      it 'should change user name' do
         expect{ subject }.to change{ user.reload.name }.from('user').to('update user')
       end
     end
@@ -29,7 +29,7 @@ RSpec.describe User, type: :request do
       let!(:other_user) { create(:user, name: 'update user') }
       let(:name) { 'update user' }
 
-      it 'should user name does not change' do
+      it 'should not change user name' do
         expect{ subject }.not_to change{ user.reload.name }
       end
     end
@@ -37,7 +37,7 @@ RSpec.describe User, type: :request do
     context 'when update user name is nil' do
       let(:name) { '' }
 
-      it 'should user name does not change' do
+      it 'should not change user name' do
         expect{ subject }.not_to change{ user.reload.name }
       end
     end
