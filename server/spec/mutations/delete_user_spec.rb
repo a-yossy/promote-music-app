@@ -16,6 +16,7 @@ RSpec.describe User, type: :request do
     }
     let(:artists) { create_list(:artist, 2) }
     before { create(:user, name: 'user', artists: artists) }
+
     subject { ServerSchema.execute(query_string, variables: { name: name }) }
 
     context "when user exists" do
