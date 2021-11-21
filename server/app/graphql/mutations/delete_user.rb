@@ -5,10 +5,8 @@ module Mutations
 
     def resolve(name:)
       user = User.find_by(name: name)
-      if !user || !user.destroy
+      if !user.destroy
         raise GraphQL::ExecutionError, "Failed to delete user"
-      else
-        { user: user }
       end
     end
   end
