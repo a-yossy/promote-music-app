@@ -34,7 +34,7 @@ RSpec.describe User, type: :request do
       end
     end
 
-    context 'when update user name is nil' do
+    context 'when update user name is invalid' do
       let(:name) { '' }
 
       it 'should not change user name' do
