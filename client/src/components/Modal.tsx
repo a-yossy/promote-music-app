@@ -22,7 +22,7 @@ const Modal: FC<ModalProps> = ({
           <div className={styles.content}>
             <UpdateUser
               currentName={currentName}
-              handleNotEditMode={handleCloseModal}
+              handleCloseModal={handleCloseModal}
             />
           </div>
         </div>

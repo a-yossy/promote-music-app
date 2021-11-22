@@ -8,13 +8,10 @@ import { useNavigate } from 'react-router';
 
 type UpdateUserProps = {
   currentName: string;
-  handleNotEditMode: () => void;
+  handleCloseModal: () => void;
 };
 
-const UpdateUser: FC<UpdateUserProps> = ({
-  currentName,
-  handleNotEditMode,
-}) => {
+const UpdateUser: FC<UpdateUserProps> = ({ currentName, handleCloseModal }) => {
   const navigate = useNavigate();
   const [updateUser] = useMutation<{ updateUser: UserData }, UpdateUserInput>(
     updateUserMutation,
@@ -31,7 +28,7 @@ const UpdateUser: FC<UpdateUserProps> = ({
           id: toastUpdateUserId,
         });
         navigate(`/user/${res.data?.updateUser.user.name as string}`);
-        handleNotEditMode();
+        handleCloseModal();
       })
       .catch((e: ApolloError) => {
         toast.error(`${e.message}`, {
@@ -48,7 +45,7 @@ const UpdateUser: FC<UpdateUserProps> = ({
       <Button onClick={handleUpdateUser} variant="contained" size="small">
         更新
       </Button>
-      <Button onClick={handleNotEditMode} variant="contained" size="small">
+      <Button onClick={handleCloseModal} variant="contained" size="small">
         キャンセル
       </Button>
     </>
