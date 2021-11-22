@@ -20,19 +20,19 @@ const UpdateUser: FC<UpdateUserProps> = ({ currentName, handleCloseModal }) => {
 
   const handleUpdateUser = () => {
     const updateName = String(inputRef.current?.value);
-    const toastUpdateUserId = toast.loading('Loading...');
+    const updateUserToastId = toast.loading('Loading...');
     updateUser({ variables: { currentName, updateName } })
       .then((res) => {
         setLoginUserName(res.data?.updateUser.user.name as string);
         toast.success('Update completed', {
-          id: toastUpdateUserId,
+          id: updateUserToastId,
         });
         navigate(`/user/${res.data?.updateUser.user.name as string}`);
         handleCloseModal();
       })
       .catch((e: ApolloError) => {
         toast.error(`${e.message}`, {
-          id: toastUpdateUserId,
+          id: updateUserToastId,
         });
       });
     if (inputRef.current?.value) inputRef.current.value = '';
