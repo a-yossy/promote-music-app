@@ -8,13 +8,10 @@ import { useNavigate } from 'react-router';
 
 type UpdateUserProps = {
   currentName: string;
-  handleNotEditMode: () => void;
+  handleCloseModal: () => void;
 };
 
-const UpdateUser: FC<UpdateUserProps> = ({
-  currentName,
-  handleNotEditMode,
-}) => {
+const UpdateUser: FC<UpdateUserProps> = ({ currentName, handleCloseModal }) => {
   const navigate = useNavigate();
   const [updateUser] = useMutation<{ updateUser: UserData }, UpdateUserInput>(
     updateUserMutation,
@@ -23,19 +20,19 @@ const UpdateUser: FC<UpdateUserProps> = ({
 
   const handleUpdateUser = () => {
     const updateName = String(inputRef.current?.value);
-    const toastUpdateUserId = toast.loading('Loading...');
+    const updateUserToastId = toast.loading('Loading...');
     updateUser({ variables: { currentName, updateName } })
       .then((res) => {
         setLoginUserName(res.data?.updateUser.user.name as string);
         toast.success('Update completed', {
-          id: toastUpdateUserId,
+          id: updateUserToastId,
         });
         navigate(`/user/${res.data?.updateUser.user.name as string}`);
-        handleNotEditMode();
+        handleCloseModal();
       })
       .catch((e: ApolloError) => {
         toast.error(`${e.message}`, {
-          id: toastUpdateUserId,
+          id: updateUserToastId,
         });
       });
     if (inputRef.current?.value) inputRef.current.value = '';
@@ -48,7 +45,7 @@ const UpdateUser: FC<UpdateUserProps> = ({
       <Button onClick={handleUpdateUser} variant="contained" size="small">
         更新
       </Button>
-      <Button onClick={handleNotEditMode} variant="contained" size="small">
+      <Button onClick={handleCloseModal} variant="contained" size="small">
         キャンセル
       </Button>
     </>

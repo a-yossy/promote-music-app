@@ -10,12 +10,12 @@ import { DeleteUserInput, deleteUserMutation, User, UserData } from 'lib/user';
 import ArtistsCard from 'components/ArtistsCard';
 import getLoginUserName from 'lib/getLoginUserName';
 import logout from 'lib/logout';
-import UpdateUser from 'components/UpdateUser';
 import { Typography, Grid, CircularProgress, Box, Button } from '@mui/material';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import InfiniteScroll from 'react-infinite-scroller';
 import cache from 'cache';
+import UpdateUserModal from 'components/UpdateUserModal';
 
 const UserPage: FC = () => {
   const params = useParams();
@@ -23,8 +23,8 @@ const UserPage: FC = () => {
   const navigate = useNavigate();
   const [artists, setArtists] = useState<Artist[]>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
-  const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [loginUser, setLoginUser] = useState<string>('');
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const { loading, data, fetchMore, refetch } = useQuery<
     { currentUserArtists: Artist[] },
@@ -55,7 +55,7 @@ const UserPage: FC = () => {
 
   useEffect(() => {
     setLoginUser(getLoginUserName);
-  }, [isEditMode]);
+  }, [showModal]);
 
   const getCurrentUserArtistsData = () => {
     fetchMore({
@@ -72,12 +72,12 @@ const UserPage: FC = () => {
       });
   };
 
-  const handleEditMode = () => {
-    setIsEditMode(true);
+  const handleOpenModal = () => {
+    setShowModal(true);
   };
 
-  const handleNotEditMode = () => {
-    setIsEditMode(false);
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   const handleDelete = () => {
@@ -114,37 +114,30 @@ const UserPage: FC = () => {
 
   return (
     <>
-      {isEditMode ? (
-        <UpdateUser
-          currentName={paramsUserName}
-          handleNotEditMode={handleNotEditMode}
-        />
-      ) : (
-        <>
-          <Toaster />
-          <Grid container>
-            <Grid item>
-              <Typography
-                variant="h5"
-                color="#9e9e9e"
-                sx={{ ml: 3, mt: 4, mb: 2 }}
-              >
-                {paramsUserName}
-              </Typography>
-            </Grid>
-            {loginUser === paramsUserName && (
-              <>
-                <Grid item>
-                  <Button
-                    onClick={handleEditMode}
-                    variant="contained"
-                    size="small"
-                    sx={{ ml: 3, mt: 4, mb: 2 }}
-                  >
-                    編集
-                  </Button>
-                </Grid>
-                <Grid item>
+      <UpdateUserModal
+        showModal={showModal}
+        handleCloseModal={handleCloseModal}
+        currentName={paramsUserName}
+      />
+      <Toaster />
+      <Grid container>
+        <Grid item>
+          <Typography variant="h5" color="#9e9e9e" sx={{ ml: 3, mt: 4, mb: 2 }}>
+            {paramsUserName}
+          </Typography>
+        </Grid>
+        {loginUser === paramsUserName && (
+          <Grid item>
+            <Button
+              onClick={handleOpenModal}
+              variant="contained"
+              size="small"
+              sx={{ ml: 3, mt: 4, mb: 2 }}
+            >
+              編集
+            </Button>
+          </Grid>
+          <Grid item>
                   <Button
                     onClick={handleDelete}
                     variant="contained"
@@ -154,25 +147,22 @@ const UserPage: FC = () => {
                     削除
                   </Button>
                 </Grid>
-              </>
-            )}
-          </Grid>
-          <Grid container justifyContent="center">
-            <InfiniteScroll
-              loadMore={getCurrentUserArtistsData}
-              hasMore={hasMore}
-              loader={
-                <div key={0}>
-                  <CircularProgress sx={{ mt: 5, ml: 72 }} />
-                </div>
-              }
-              initialLoad={false}
-            >
-              <ArtistsCard artists={artists} />
-            </InfiniteScroll>
-          </Grid>
-        </>
-      )}
+        )}
+      </Grid>
+      <Grid container justifyContent="center">
+        <InfiniteScroll
+          loadMore={getCurrentUserArtistsData}
+          hasMore={hasMore}
+          loader={
+            <div key={0}>
+              <CircularProgress sx={{ mt: 5, ml: 72 }} />
+            </div>
+          }
+          initialLoad={false}
+        >
+          <ArtistsCard artists={artists} />
+        </InfiniteScroll>
+      </Grid>
     </>
   );
 };
