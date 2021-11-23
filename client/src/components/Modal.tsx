@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import UpdateUser from 'components/UpdateUser';
-import useStyles from './modalStyle';
+import useStyles from 'lib/modalStyle';
 
 type ModalProps = {
   currentName: string;
