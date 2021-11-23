@@ -12,7 +12,7 @@ import { Typography, Grid, CircularProgress, Box, Button } from '@mui/material';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import InfiniteScroll from 'react-infinite-scroller';
-import Modal from 'components/Modal';
+import UpdateUserModal from 'components/UpdateUserModal';
 
 const UserPage: FC = () => {
   const params = useParams();
@@ -82,7 +82,7 @@ const UserPage: FC = () => {
 
   return (
     <>
-      <Modal
+      <UpdateUserModal
         showModal={showModal}
         handleCloseModal={handleCloseModal}
         currentName={paramsUserName}

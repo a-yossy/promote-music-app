@@ -1,30 +1,18 @@
 import { FC } from 'react';
-import UpdateUser from 'components/UpdateUser';
 import useStyles from 'lib/modalStyle';
 
 type ModalProps = {
-  currentName: string;
   showModal: boolean;
-  handleCloseModal: () => void;
 };
 
-const Modal: FC<ModalProps> = ({
-  currentName,
-  showModal,
-  handleCloseModal,
-}) => {
+const Modal: FC<ModalProps> = ({ showModal, children }) => {
   const styles = useStyles();
 
   return (
     <>
       {showModal && (
         <div className={styles.overlay}>
-          <div className={styles.content}>
-            <UpdateUser
-              currentName={currentName}
-              handleCloseModal={handleCloseModal}
-            />
-          </div>
+          <div className={styles.content}>{children}</div>
         </div>
       )}
     </>
