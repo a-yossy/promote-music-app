@@ -6,10 +6,7 @@ RSpec.describe User, type: :request do
       <<-GraphQL
         mutation ($name: String!) {
           deleteUser(input: { name: $name }) {
-            user {
-              id
-              name
-            }
+            clientMutationId
           }       
         }
       GraphQL
