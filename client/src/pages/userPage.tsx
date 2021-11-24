@@ -20,7 +20,7 @@ const UserPage: FC = () => {
   const navigate = useNavigate();
   const [artists, setArtists] = useState<Artist[]>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
-  const [loginUser, setLoginUser] = useState<string>('');
+  const loginUser = getLoginUserName();
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const { loading, data, fetchMore, refetch } = useQuery<
@@ -45,10 +45,6 @@ const UserPage: FC = () => {
         toast.error(e.message);
       });
   }, [paramsUserName, refetch]);
-
-  useEffect(() => {
-    setLoginUser(getLoginUserName);
-  }, [showModal]);
 
   const getCurrentUserArtistsData = () => {
     fetchMore({
