@@ -127,26 +127,28 @@ const UserPage: FC = () => {
           </Typography>
         </Grid>
         {loginUser === paramsUserName && (
-          <Grid item>
-            <Button
-              onClick={handleOpenModal}
-              variant="contained"
-              size="small"
-              sx={{ ml: 3, mt: 4, mb: 2 }}
-            >
-              編集
-            </Button>
-          </Grid>
-          <Grid item>
-                  <Button
-                    onClick={handleDelete}
-                    variant="contained"
-                    size="small"
-                    sx={{ ml: 3, mt: 4, mb: 2 }}
-                  >
-                    削除
-                  </Button>
-                </Grid>
+          <>
+            <Grid item>
+              <Button
+                onClick={handleOpenModal}
+                variant="contained"
+                size="small"
+                sx={{ ml: 3, mt: 4, mb: 2 }}
+              >
+                編集
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                onClick={handleDelete}
+                variant="contained"
+                size="small"
+                sx={{ ml: 3, mt: 4, mb: 2 }}
+              >
+                削除
+              </Button>
+            </Grid>
+          </>
         )}
       </Grid>
       <Grid container justifyContent="center">
