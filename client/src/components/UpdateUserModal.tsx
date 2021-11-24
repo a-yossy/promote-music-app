@@ -3,7 +3,7 @@ import { useMutation, ApolloError } from '@apollo/client';
 import { updateUserMutation, UpdateUserInput, UserData } from 'lib/user';
 import setLoginUserName from 'lib/setLoginUserName';
 import { Button, Input } from '@mui/material';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import Modal from 'components/Modal';
 
@@ -47,7 +47,6 @@ const UpdateUserModal: FC<UpdateUserModalProps> = ({
   return (
     <Modal showModal={showModal}>
       <>
-        <Toaster />
         <Input inputRef={inputRef} sx={{ ml: 3, mt: 4, mb: 2 }} />
         <Button onClick={handleUpdateUser} variant="contained" size="small">
           更新
