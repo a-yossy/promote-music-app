@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { ApolloError, useQuery } from '@apollo/client';
 import {
@@ -69,9 +69,9 @@ const UserPage: FC = () => {
     setShowModal(true);
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setShowModal(false);
-  };
+  }, []);
 
   if (loading)
     return (
