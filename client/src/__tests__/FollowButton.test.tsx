@@ -33,4 +33,27 @@ describe('<FollowButton />', () => {
     expect(handleFollow).to.have.property('callCount', 1);
     expect(handleUnFollow).to.have.property('callCount', 0);
   });
+
+  it('unfollows other user', () => {
+    const isFollow = true;
+    const handleFollow = sinon.spy();
+    const handleUnfollow = sinon.spy();
+    const wrapper = shallow(
+      <FollowButton
+        loading={false}
+        followLoading={false}
+        unfollowLoading={false}
+        isFollowLoading={false}
+        isFollow={isFollow}
+        handleFollow={handleFollow}
+        handleUnfollow={handleUnfollow}
+      />,
+    );
+    expect(wrapper.text()).includes('フォロー中');
+    wrapper.find(LoadingButton).simulate('click');
+    wrapper.setProps({ isFollow: false });
+    expect(wrapper.text()).includes('フォローする');
+    expect(handleFollow).to.have.property('callCount', 0);
+    expect(handleUnfollow).to.have.property('callCount', 1);
+  });
 });
