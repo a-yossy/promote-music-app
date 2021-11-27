@@ -20,16 +20,16 @@ RSpec.describe Artist, type: :request do
     context 'when artist name is valid' do
       let(:name) { 'artist' }
 
-      it 'should return right artist' do
-        expect(result_data['artist']['name']).to eq 'artist' and change{ Artist.count }.by(1)
+      it 'should create an artist' do
+        expect(result_data['artist']['name']).to eq 'artist' and change(Artist, :count).by(1)
       end
     end
 
     context 'when same artist name already exists' do
-      let!(:other_artist) { create(:artist, name: 'artist') }
+      before { create(:artist, name: 'artist') }
       let(:name) { 'artist' }
 
-      it 'should return nil' do
+      it 'should not create an artist' do
         expect(result_data).to eq nil and change{ Artist.count }.by(0)
       end
     end
@@ -37,7 +37,7 @@ RSpec.describe Artist, type: :request do
     context 'when artist name is nil' do
       let(:name) { '' }
 
-      it 'should return nil' do
+      it 'should not create an artist' do
         expect(result_data).to eq nil and change{ Artist.count }.by(0)
       end
     end

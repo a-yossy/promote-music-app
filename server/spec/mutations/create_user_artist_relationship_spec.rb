@@ -19,16 +19,16 @@ RSpec.describe UserArtist, type: :request do
     subject { ServerSchema.execute(query_string, variables: { userName: 'user', artistName: 'artist' }) }
 
     context 'when user does not follow artist' do
-      it 'should count of UserArtist increases 1' do
+      it 'should increase count of UserArtist by 1' do
         expect { subject }.to change{ UserArtist.count }.by(1)
       end
     end
 
     context 'when user already follows artist' do
-      let!(:user_artist) { create(:user_artist, user: user, artist: artist) }
+      before { create(:user_artist, user: user, artist: artist) }
 
-      it 'should count of UserArtist does not change' do
-        expect { subject }.to change{ UserArtist.count }.by(0)
+      it 'should not change count of UserArtist' do
+        expect { subject }.not_to change{ UserArtist.count }
       end
     end
   end

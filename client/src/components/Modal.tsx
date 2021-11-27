@@ -1,8 +1,9 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import useStyles from 'lib/modalStyle';
 
 type ModalProps = {
   showModal: boolean;
+  children: ReactNode;
 };
 
 const Modal: FC<ModalProps> = ({ showModal, children }) => {

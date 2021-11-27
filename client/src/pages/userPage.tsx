@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { ApolloError, useQuery, useMutation } from '@apollo/client';
 import {
@@ -23,7 +23,7 @@ const UserPage: FC = () => {
   const navigate = useNavigate();
   const [artists, setArtists] = useState<Artist[]>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
-  const [loginUser, setLoginUser] = useState<string>('');
+  const loginUserName = getLoginUserName();
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const { loading, data, fetchMore, refetch } = useQuery<
@@ -53,10 +53,6 @@ const UserPage: FC = () => {
       });
   }, [paramsUserName, refetch]);
 
-  useEffect(() => {
-    setLoginUser(getLoginUserName);
-  }, [showModal]);
-
   const getCurrentUserArtistsData = () => {
     fetchMore({
       variables: {
@@ -76,9 +72,9 @@ const UserPage: FC = () => {
     setShowModal(true);
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setShowModal(false);
-  };
+  }, []);
 
   const handleDelete = () => {
     const deleteUserToastId = toast.loading('Loading...');
@@ -126,7 +122,7 @@ const UserPage: FC = () => {
             {paramsUserName}
           </Typography>
         </Grid>
-        {loginUser === paramsUserName && (
+        {loginUserName === paramsUserName && (
           <>
             <Grid item>
               <Button

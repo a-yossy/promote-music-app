@@ -17,15 +17,19 @@ RSpec.describe Artist, type: :request do
     let(:result_data) { result['data']['currentUserArtists'] }
 
     context 'when artists exist' do
-      5.times do |n|
-        let!("artist_#{n + 1}".to_s) { create(:artist, name: "artist#{n + 1}") }
+      before do
+        create_list(:artist, 3) do |artist, i|
+          artist.name = "artist#{i + 1}"
+          artist.users = [user]
+        end
       end
-      let!(:user_artist_1) { create(:user_artist, user: user, artist: artist_1) }
-      let!(:user_artist_2) { create(:user_artist, user: user, artist: artist_2) }
-      let!(:user_artist_3) { create(:user_artist, user: user, artist: artist_3) }
 
       it 'should return right artists' do
-        expect(result_data).to eq 3.times.map { |n| {"id" => "#{n + 1}", "name" => "artist#{n + 1}"}}
+        expect(result_data).to eq [
+                                    {"id" => "1", "name" => "artist1"},
+                                    {"id" => "2", "name" => "artist2"},
+                                    {"id" => "3", "name" => "artist3"}
+                                  ]
       end
     end
 
