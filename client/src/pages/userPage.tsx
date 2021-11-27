@@ -20,7 +20,7 @@ const UserPage: FC = () => {
   const navigate = useNavigate();
   const [artists, setArtists] = useState<Artist[]>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
-  const loginUser = getLoginUserName();
+  const loginUserName = getLoginUserName();
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const { loading, data, fetchMore, refetch } = useQuery<
@@ -90,7 +90,7 @@ const UserPage: FC = () => {
             {paramsUserName}
           </Typography>
         </Grid>
-        {loginUser === paramsUserName && (
+        {loginUserName === paramsUserName && (
           <Grid item>
             <Button
               onClick={handleOpenModal}
