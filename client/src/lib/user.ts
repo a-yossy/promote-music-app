@@ -29,6 +29,10 @@ export type UpdateUserInput = {
   updateName: string;
 };
 
+export type DeleteUserInput = {
+  name: string;
+};
+
 export const getUsersQuery = gql`
   query Users($offset: Int!, $limit: Int!) {
     users(offset: $offset, limit: $limit) {
@@ -105,6 +109,14 @@ export const updateUserMutation = gql`
         id
         name
       }
+    }
+  }
+`;
+
+export const deleteUserMutation = gql`
+  mutation DeleteUser($name: String!) {
+    deleteUser(input: { name: $name }) {
+      clientMutationId
     }
   }
 `;
