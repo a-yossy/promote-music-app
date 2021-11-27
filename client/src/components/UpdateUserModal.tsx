@@ -29,11 +29,20 @@ const UpdateUserModal: FC<UpdateUserModalProps> = ({
     const updateUserToastId = toast.loading('Loading...');
     updateUser({ variables: { currentName, updateName } })
       .then((res) => {
-        setLoginUserName(res.data?.updateUser.user.name as string);
+        if (!res.data) {
+          toast.error('Update failed!', {
+            id: updateUserToastId,
+          });
+
+          return;
+        }
+
+        const { user } = res.data.updateUser;
+        setLoginUserName(user.name);
         toast.success('Update completed', {
           id: updateUserToastId,
         });
-        navigate(`/user/${res.data?.updateUser.user.name as string}`);
+        navigate(`/user/${user.name}`);
         handleCloseModal();
       })
       .catch((e: ApolloError) => {
