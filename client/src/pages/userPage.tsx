@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { ApolloError, useQuery } from '@apollo/client';
 import {
@@ -7,17 +7,21 @@ import {
   CurrentUserArtistsInput,
 } from 'lib/artist';
 import ArtistsCard from 'components/ArtistsCard';
-import { Typography, Grid, CircularProgress, Box } from '@mui/material';
+import getLoginUserName from 'lib/getLoginUserName';
+import { Typography, Grid, CircularProgress, Box, Button } from '@mui/material';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import InfiniteScroll from 'react-infinite-scroller';
+import UpdateUserModal from 'components/UpdateUserModal';
 
 const UserPage: FC = () => {
   const params = useParams();
-  const paramsUserName = params.name;
+  const paramsUserName = params.name as string;
   const navigate = useNavigate();
   const [artists, setArtists] = useState<Artist[]>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
+  const loginUserName = getLoginUserName();
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const { loading, data, fetchMore, refetch } = useQuery<
     { currentUserArtists: Artist[] },
@@ -57,6 +61,14 @@ const UserPage: FC = () => {
       });
   };
 
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = useCallback(() => {
+    setShowModal(false);
+  }, []);
+
   if (loading)
     return (
       <Box sx={{ ml: 3, mt: 4, mb: 2 }}>
@@ -66,10 +78,31 @@ const UserPage: FC = () => {
 
   return (
     <>
+      <UpdateUserModal
+        showModal={showModal}
+        handleCloseModal={handleCloseModal}
+        currentName={paramsUserName}
+      />
       <Toaster />
-      <Typography variant="h5" color="#9e9e9e" sx={{ ml: 3, mt: 4, mb: 2 }}>
-        {paramsUserName}
-      </Typography>
+      <Grid container>
+        <Grid item>
+          <Typography variant="h5" color="#9e9e9e" sx={{ ml: 3, mt: 4, mb: 2 }}>
+            {paramsUserName}
+          </Typography>
+        </Grid>
+        {loginUserName === paramsUserName && (
+          <Grid item>
+            <Button
+              onClick={handleOpenModal}
+              variant="contained"
+              size="small"
+              sx={{ ml: 3, mt: 4, mb: 2 }}
+            >
+              編集
+            </Button>
+          </Grid>
+        )}
+      </Grid>
       <Grid container justifyContent="center">
         <InfiniteScroll
           loadMore={getCurrentUserArtistsData}
