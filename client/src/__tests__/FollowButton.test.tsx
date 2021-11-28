@@ -56,4 +56,26 @@ describe('<FollowButton />', () => {
     expect(handleFollow).to.have.property('callCount', 0);
     expect(handleUnfollow).to.have.property('callCount', 1);
   });
+
+  it('changes the unfollow button name during a mouse over', () => {
+    const isFollow = true;
+    const handleFollow = sinon.spy();
+    const handleUnfollow = sinon.spy();
+    const setState = jest.fn();
+    const useStateSpy = jest.spyOn(React, 'useState');
+    const init = true;
+    useStateSpy.mockImplementation(() => [init, setState]);
+    const wrapper = shallow(
+      <FollowButton
+        loading={false}
+        followLoading={false}
+        unfollowLoading={false}
+        isFollowLoading={false}
+        isFollow={isFollow}
+        handleFollow={handleFollow}
+        handleUnfollow={handleUnfollow}
+      />,
+    );
+    expect(wrapper.text()).includes('フォロー解除');
+  });
 });
