@@ -1,11 +1,11 @@
 import React from 'react';
 import { expect } from 'chai';
 import { configure, shallow } from 'enzyme';
-
 import Adapter from 'enzyme-adapter-react-16';
 import FollowButton from 'components/FollowButton';
 import LoadingButton from '@mui/lab/LoadingButton';
 import sinon from 'sinon';
+import { render, screen, fireEvent } from '@testing-library/react';
 
 configure({ adapter: new Adapter() });
 
@@ -57,15 +57,11 @@ describe('<FollowButton />', () => {
     expect(handleUnfollow).to.have.property('callCount', 1);
   });
 
-  it('changes the unfollow button name during a mouse over', () => {
+  test('changes the unfollow button name during a mouse over', () => {
     const isFollow = true;
     const handleFollow = sinon.spy();
     const handleUnfollow = sinon.spy();
-    const setState = jest.fn();
-    const useStateSpy = jest.spyOn(React, 'useState');
-    const init = true;
-    useStateSpy.mockImplementation(() => [init, setState]);
-    const wrapper = shallow(
+    render(
       <FollowButton
         loading={false}
         followLoading={false}
@@ -76,6 +72,8 @@ describe('<FollowButton />', () => {
         handleUnfollow={handleUnfollow}
       />,
     );
-    expect(wrapper.text()).includes('フォロー解除');
+    expect(screen.getByRole('button').textContent).to.equal('フォロー中');
+    fireEvent.mouseEnter(screen.getByRole('button'));
+    expect(screen.getByRole('button').textContent).includes('フォロー解除');
   });
 });
