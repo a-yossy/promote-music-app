@@ -74,6 +74,6 @@ describe('<FollowButton />', () => {
     );
     expect(screen.getByRole('button').textContent).to.equal('フォロー中');
     fireEvent.mouseEnter(screen.getByRole('button'));
-    expect(screen.getByRole('button').textContent).includes('フォロー解除');
+    expect(screen.getByRole('button').textContent).to.equal('フォロー解除');
   });
 });
